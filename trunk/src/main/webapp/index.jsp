@@ -2,61 +2,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <title>登录页面 - 后台管理系统</title>
-  <meta name="keywords" content="后台管理系统" />
-  <meta name="description" content="后台管理系统" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- basic styles -->
-  <link href="static/assets/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="static/assets/css/font-awesome.min.css" />
-  <!--[if IE 7]>
-  <link rel="stylesheet" href="static/assets/css/font-awesome-ie7.min.css" />
-  <![endif]-->
-  <!-- page specific plugin styles -->
-  <!-- fonts -->
-  <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta charset="utf-8" />
+  <title>Login Page - Ace Admin</title>
+
+  <meta name="description" content="User login page" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+  <!-- bootstrap & fontawesome -->
+  <link rel="stylesheet" href="static/ace/css/bootstrap.css" />
+  <link rel="stylesheet" href="static/ace/css/font-awesome.css" />
+
+  <!-- text fonts -->
+  <link rel="stylesheet" href="static/ace/css/ace-fonts.css" />
+
   <!-- ace styles -->
-  <link rel="stylesheet" href="static/assets/css/ace.min.css" />
-  <link rel="stylesheet" href="static/assets/css/ace-rtl.min.css" />
-  <!--[if lte IE 8]>
-  <link rel="stylesheet" href="static/assets/css/ace-ie.min.css" />
+  <link rel="stylesheet" href="static/ace/css/ace.css" />
+
+  <!--[if lte IE 9]>
+  <link rel="stylesheet" href="static/ace/css/ace-part2.css" />
   <![endif]-->
-  <!-- inline styles related to this page -->
+  <link rel="stylesheet" href="static/ace/css/ace-rtl.css" />
+
+  <!--[if lte IE 9]>
+  <link rel="stylesheet" href="static/ace/css/ace-ie.css" />
+  <![endif]-->
+
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- basic scripts -->
-  <!--[if !IE]> -->
-  <script src="static/assets/js/jquery-2.0.3.min.js"></script>
-  <!-- <![endif]-->
-  <!--[if IE]>
-  <script src="static/assets/js/jquery-1.10.2.min.js"></script>
-  <![endif]-->
-  <!--[if !IE]> -->
-  <script type="text/javascript">
-    window.jQuery || document.write("<script src='static/assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
-  </script>
-  <!-- <![endif]-->
-  <!--[if IE]>
-  <script type="text/javascript">
-    window.jQuery || document.write("<script src='static/assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
-  </script>
-  <![endif]-->
-  <script type="text/javascript">
-    if("ontouchend" in document) document.write("<script src='static/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-  </script>
-  <!-- inline scripts related to this page -->
-  <script type="text/javascript">
-    function show_box(id) {
-      jQuery('.widget-box.visible').removeClass('visible');
-      jQuery('#'+id).addClass('visible');
-    }
-  </script>
-  <div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+
   <!--[if lt IE 9]>
-  <script src="static/assets/js/html5shiv.js"></script>
-  <script src="static/assets/js/respond.min.js"></script>
+  <script src="static/ace/js/html5shiv.js"></script>
+  <script src="static/ace/js/respond.js"></script>
   <![endif]-->
-  <script type="text/javascript" src="static/javascript/login/login.js"></script>
 </head>
 
 <body class="login-layout">
@@ -67,11 +44,11 @@
         <div class="login-container">
           <div class="center">
             <h1>
-              <i class="icon-leaf green"></i>
+              <i class="ace-icon fa fa-leaf green"></i>
               <span class="red">Ace</span>
-              <span class="white">Application</span>
+              <span class="white" id="id-text2">Application</span>
             </h1>
-            <h4 class="blue">&copy; Company Name</h4>
+            <h4 class="blue" id="id-company-text">&copy; Company Name</h4>
           </div>
 
           <div class="space-6"></div>
@@ -81,26 +58,26 @@
               <div class="widget-body">
                 <div class="widget-main">
                   <h4 class="header blue lighter bigger">
-                    <i class="icon-coffee green"></i>
+                    <i class="ace-icon fa fa-coffee green"></i>
                     Please Enter Your Information
                   </h4>
 
                   <div class="space-6"></div>
 
-                  <form action="sys/index" id="form" name="form" method="post">
+                  <form>
                     <fieldset>
                       <label class="block clearfix">
-                        <span class="block input-icon input-icon-right">
-                            <input type="text" class="form-control" placeholder="Username" name="username"/>
-                            <i class="icon-user"></i>
-                        </span>
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" placeholder="Username" />
+															<i class="ace-icon fa fa-user"></i>
+														</span>
                       </label>
 
                       <label class="block clearfix">
-                        <span class="block input-icon input-icon-right">
-                            <input type="password" class="form-control" placeholder="Password" name="password"/>
-                            <i class="icon-lock"></i>
-                        </span>
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" placeholder="Password" />
+															<i class="ace-icon fa fa-lock"></i>
+														</span>
                       </label>
 
                       <div class="space"></div>
@@ -111,9 +88,9 @@
                           <span class="lbl"> Remember Me</span>
                         </label>
 
-                        <button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="login">
-                          <i class="icon-key"></i>
-                          Login
+                        <button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+                          <i class="ace-icon fa fa-key"></i>
+                          <span class="bigger-110">Login</span>
                         </button>
                       </div>
 
@@ -125,44 +102,46 @@
                     <span class="bigger-110">Or Login Using</span>
                   </div>
 
+                  <div class="space-6"></div>
+
                   <div class="social-login center">
                     <a class="btn btn-primary">
-                      <i class="icon-facebook"></i>
+                      <i class="ace-icon fa fa-facebook"></i>
                     </a>
 
                     <a class="btn btn-info">
-                      <i class="icon-twitter"></i>
+                      <i class="ace-icon fa fa-twitter"></i>
                     </a>
 
                     <a class="btn btn-danger">
-                      <i class="icon-google-plus"></i>
+                      <i class="ace-icon fa fa-google-plus"></i>
                     </a>
                   </div>
-                </div><!-- /widget-main -->
+                </div><!-- /.widget-main -->
 
                 <div class="toolbar clearfix">
                   <div>
-                    <a href="javascript:;" onclick="show_box('forgot-box'); return false;" class="forgot-password-link">
-                      <i class="icon-arrow-left"></i>
+                    <a href="#" data-target="#forgot-box" class="forgot-password-link">
+                      <i class="ace-icon fa fa-arrow-left"></i>
                       I forgot my password
                     </a>
                   </div>
 
                   <div>
-                    <a href="javascript:;" onclick="show_box('signup-box'); return false;" class="user-signup-link">
+                    <a href="#" data-target="#signup-box" class="user-signup-link">
                       I want to register
-                      <i class="icon-arrow-right"></i>
+                      <i class="ace-icon fa fa-arrow-right"></i>
                     </a>
                   </div>
                 </div>
-              </div><!-- /widget-body -->
-            </div><!-- /login-box -->
+              </div><!-- /.widget-body -->
+            </div><!-- /.login-box -->
 
             <div id="forgot-box" class="forgot-box widget-box no-border">
               <div class="widget-body">
                 <div class="widget-main">
                   <h4 class="header red lighter bigger">
-                    <i class="icon-key"></i>
+                    <i class="ace-icon fa fa-key"></i>
                     Retrieve Password
                   </h4>
 
@@ -174,35 +153,184 @@
                   <form>
                     <fieldset>
                       <label class="block clearfix">
-                        <span class="block input-icon input-icon-right">
-                            <input type="email" class="form-control" placeholder="Email" />
-                            <i class="icon-envelope"></i>
-                        </span>
+														<span class="block input-icon input-icon-right">
+															<input type="email" class="form-control" placeholder="Email" />
+															<i class="ace-icon fa fa-envelope"></i>
+														</span>
                       </label>
 
                       <div class="clearfix">
                         <button type="button" class="width-35 pull-right btn btn-sm btn-danger">
-                          <i class="icon-lightbulb"></i>
-                          Send Me!
+                          <i class="ace-icon fa fa-lightbulb-o"></i>
+                          <span class="bigger-110">Send Me!</span>
                         </button>
                       </div>
                     </fieldset>
                   </form>
-                </div><!-- /widget-main -->
+                </div><!-- /.widget-main -->
 
                 <div class="toolbar center">
-                  <a href="javascript:;" onclick="show_box('login-box'); return false;" class="back-to-login-link">
+                  <a href="#" data-target="#login-box" class="back-to-login-link">
                     Back to login
-                    <i class="icon-arrow-right"></i>
+                    <i class="ace-icon fa fa-arrow-right"></i>
                   </a>
                 </div>
-              </div><!-- /widget-body -->
-            </div><!-- /forgot-box -->
-          </div><!-- /position-relative -->
+              </div><!-- /.widget-body -->
+            </div><!-- /.forgot-box -->
+
+            <div id="signup-box" class="signup-box widget-box no-border">
+              <div class="widget-body">
+                <div class="widget-main">
+                  <h4 class="header green lighter bigger">
+                    <i class="ace-icon fa fa-users blue"></i>
+                    New User Registration
+                  </h4>
+
+                  <div class="space-6"></div>
+                  <p> Enter your details to begin: </p>
+
+                  <form>
+                    <fieldset>
+                      <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="email" class="form-control" placeholder="Email" />
+															<i class="ace-icon fa fa-envelope"></i>
+														</span>
+                      </label>
+
+                      <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" class="form-control" placeholder="Username" />
+															<i class="ace-icon fa fa-user"></i>
+														</span>
+                      </label>
+
+                      <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" placeholder="Password" />
+															<i class="ace-icon fa fa-lock"></i>
+														</span>
+                      </label>
+
+                      <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" class="form-control" placeholder="Repeat password" />
+															<i class="ace-icon fa fa-retweet"></i>
+														</span>
+                      </label>
+
+                      <label class="block">
+                        <input type="checkbox" class="ace" />
+														<span class="lbl">
+															I accept the
+															<a href="#">User Agreement</a>
+														</span>
+                      </label>
+
+                      <div class="space-24"></div>
+
+                      <div class="clearfix">
+                        <button type="reset" class="width-30 pull-left btn btn-sm">
+                          <i class="ace-icon fa fa-refresh"></i>
+                          <span class="bigger-110">Reset</span>
+                        </button>
+
+                        <button type="button" class="width-65 pull-right btn btn-sm btn-success">
+                          <span class="bigger-110">Register</span>
+
+                          <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                        </button>
+                      </div>
+                    </fieldset>
+                  </form>
+                </div>
+
+                <div class="toolbar center">
+                  <a href="#" data-target="#login-box" class="back-to-login-link">
+                    <i class="ace-icon fa fa-arrow-left"></i>
+                    Back to login
+                  </a>
+                </div>
+              </div><!-- /.widget-body -->
+            </div><!-- /.signup-box -->
+          </div><!-- /.position-relative -->
+
+          <div class="navbar-fixed-top align-right">
+            <br />
+            &nbsp;
+            <a id="btn-login-dark" href="#">Dark</a>
+            &nbsp;
+            <span class="blue">/</span>
+            &nbsp;
+            <a id="btn-login-blur" href="#">Blur</a>
+            &nbsp;
+            <span class="blue">/</span>
+            &nbsp;
+            <a id="btn-login-light" href="#">Light</a>
+            &nbsp; &nbsp; &nbsp;
+          </div>
         </div>
       </div><!-- /.col -->
     </div><!-- /.row -->
-  </div>
+  </div><!-- /.main-content -->
 </div><!-- /.main-container -->
+
+<!-- basic scripts -->
+
+<!--[if !IE]> -->
+<script type="text/javascript">
+  window.jQuery || document.write("<script src='static/ace/js/jquery.js'>"+"<"+"/script>");
+</script>
+
+<!-- <![endif]-->
+
+<!--[if IE]>
+<script type="text/javascript">
+  window.jQuery || document.write("<script src='static/ace/js/jquery1x.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+<script type="text/javascript">
+  if('ontouchstart' in document.documentElement) document.write("<script src='static/ace/js/jquery.mobile.custom.js'>"+"<"+"/script>");
+</script>
+
+<!-- inline scripts related to this page -->
+<script type="text/javascript">
+  jQuery(function($) {
+    $(document).on('click', '.toolbar a[data-target]', function(e) {
+      e.preventDefault();
+      var target = $(this).data('target');
+      $('.widget-box.visible').removeClass('visible');//hide others
+      $(target).addClass('visible');//show target
+    });
+  });
+
+
+
+  //you don't need this, just used for changing background
+  jQuery(function($) {
+    $('#btn-login-dark').on('click', function(e) {
+      $('body').attr('class', 'login-layout');
+      $('#id-text2').attr('class', 'white');
+      $('#id-company-text').attr('class', 'blue');
+
+      e.preventDefault();
+    });
+    $('#btn-login-light').on('click', function(e) {
+      $('body').attr('class', 'login-layout light-login');
+      $('#id-text2').attr('class', 'grey');
+      $('#id-company-text').attr('class', 'blue');
+
+      e.preventDefault();
+    });
+    $('#btn-login-blur').on('click', function(e) {
+      $('body').attr('class', 'login-layout blur-login');
+      $('#id-text2').attr('class', 'white');
+      $('#id-company-text').attr('class', 'light-blue');
+
+      e.preventDefault();
+    });
+
+  });
+</script>
 </body>
 </html>
