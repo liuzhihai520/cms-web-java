@@ -64,20 +64,20 @@
 
                   <div class="space-6"></div>
 
-                  <form>
+                  <form action="sys/index" id="form" name="form" method="post">
                     <fieldset>
                       <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
-															<i class="ace-icon fa fa-user"></i>
-														</span>
+                        <span class="block input-icon input-icon-right">
+                            <input type="text" class="form-control" placeholder="Username" />
+                            <i class="ace-icon fa fa-user"></i>
+                        </span>
                       </label>
 
                       <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
-															<i class="ace-icon fa fa-lock"></i>
-														</span>
+                        <span class="block input-icon input-icon-right">
+                            <input type="password" class="form-control" placeholder="Password" />
+                            <i class="ace-icon fa fa-lock"></i>
+                        </span>
                       </label>
 
                       <div class="space"></div>
@@ -88,7 +88,7 @@
                           <span class="lbl"> Remember Me</span>
                         </label>
 
-                        <button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+                        <button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="login">
                           <i class="ace-icon fa fa-key"></i>
                           <span class="bigger-110">Login</span>
                         </button>
@@ -153,10 +153,10 @@
                   <form>
                     <fieldset>
                       <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
-															<i class="ace-icon fa fa-envelope"></i>
-														</span>
+                        <span class="block input-icon input-icon-right">
+                            <input type="email" class="form-control" placeholder="Email" />
+                            <i class="ace-icon fa fa-envelope"></i>
+                        </span>
                       </label>
 
                       <div class="clearfix">
@@ -192,39 +192,39 @@
                   <form>
                     <fieldset>
                       <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
-															<i class="ace-icon fa fa-envelope"></i>
-														</span>
+                        <span class="block input-icon input-icon-right">
+                            <input type="email" class="form-control" placeholder="Email" />
+                            <i class="ace-icon fa fa-envelope"></i>
+                        </span>
                       </label>
 
                       <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Username" />
-															<i class="ace-icon fa fa-user"></i>
-														</span>
+                        <span class="block input-icon input-icon-right">
+                            <input type="text" class="form-control" placeholder="Username" />
+                            <i class="ace-icon fa fa-user"></i>
+                        </span>
                       </label>
 
                       <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
-															<i class="ace-icon fa fa-lock"></i>
-														</span>
+                        <span class="block input-icon input-icon-right">
+                            <input type="password" class="form-control" placeholder="Password" />
+                            <i class="ace-icon fa fa-lock"></i>
+                        </span>
                       </label>
 
                       <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Repeat password" />
-															<i class="ace-icon fa fa-retweet"></i>
-														</span>
+                        <span class="block input-icon input-icon-right">
+                            <input type="password" class="form-control" placeholder="Repeat password" />
+                            <i class="ace-icon fa fa-retweet"></i>
+                        </span>
                       </label>
 
                       <label class="block">
                         <input type="checkbox" class="ace" />
-														<span class="lbl">
-															I accept the
-															<a href="#">User Agreement</a>
-														</span>
+                          <span class="lbl">
+                              I accept the
+                              <a href="#">User Agreement</a>
+                          </span>
                       </label>
 
                       <div class="space-24"></div>
@@ -329,8 +329,8 @@
 
       e.preventDefault();
     });
-
   });
 </script>
+<script src="static/javascript/login/login.js"></script>
 </body>
 </html>

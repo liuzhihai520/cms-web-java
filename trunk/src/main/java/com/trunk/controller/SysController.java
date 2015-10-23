@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class SysController {
 
+    //登陆界面
     @RequestMapping("/index")
     public String index(){
         return "main/main";
