@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhb.dao.UserDao">
+    <!-- 用户总数 -->
+    <select id="userAccount" parameterType="java.util.Map" resultType="Integer">
+        SELECT count(0) as getCount from t_spread_user where role != 1 limit #{index},10
+    </select>
+    <!-- 用户列表 -->
+    <select id="userList" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT * from t_spread_user where role != 1 limit #{index},10
+    </select>
+</mapper>
