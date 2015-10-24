@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -154,51 +155,15 @@
         <ul class="nav nav-list">
             <!-- 第一层菜单 -->
             <!-- active表示选中加粗 -->
-            <li>
-                <a href="sys/index" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-tachometer"></i>
-                    <span class="menu-text"> Dashboard </span>
-                </a>
-                <b class="arrow"></b>
-            </li>
-
-            <li>
-                <a href="javascript:;" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-desktop"></i>
-                        <span class="menu-text">
-                            系统 &amp; 设置
-                        </span>
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-                <b class="arrow"></b>
-                <ul class="submenu">
-                    <li class="">
-                        <a href="/" class="dropdown-toggle">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Layouts
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
-                        <b class="arrow"></b>
-                        <ul class="submenu">
-                            <li class="">
-                                <a href="javascript:;">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Top Menu
-                                </a>
-                                <b class="arrow"></b>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li class="">
-                        <a href="typography.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Typography
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
+            <c:forEach items="${menuList}" var="obj">
+                <li onclick="subMenu(${obj.id})">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <i class="menu-icon fa ${obj.icon}"></i>
+                        <span class="menu-text"> ${obj.name} </span>
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </c:forEach>
         </ul>
 
         <!-- #section:basics/sidebar.layout.minimize -->
@@ -317,7 +282,7 @@
                     </h1>
                 </div>
 
-                <iframe id="iframe_id" width="100%" class="auto-height" scrolling="no" frameborder="0" name="iframe_id" src="pages/user/addRole.jsp"></iframe>
+                <iframe id="iframe_id" width="100%" class="auto-height" scrolling="no" frameborder="0" name="iframe_id" src="pages/sys/addMenu.jsp"></iframe>
                 <script>
                     $('iframe.auto-height').iframeAutoHeight({minHeight: 580});
                 </script>

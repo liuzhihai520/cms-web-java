@@ -32,7 +32,6 @@ public class UserController {
                           @RequestParam(required = true, defaultValue = "") String roleKey,
                           @RequestParam(required = true, defaultValue = "1") int status,
                           @RequestParam(required = true, defaultValue = "") String description){
-        System.out.println(status);
         userService.addRole(roleName,roleKey,status,description);
         return "user/addRole";
     }
