@@ -12,6 +12,7 @@
     <title>Dashboard - Ace Admin</title>
 
     <meta name="description" content="overview &amp; stats" />
+    <!-- 处理移动端标签 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
     <!-- bootstrap & fontawesome -->
@@ -45,10 +46,30 @@
     <script src="static/ace/js/html5shiv.js"></script>
     <script src="static/ace/js/respond.js"></script>
     <![endif]-->
+    <!-- basic scripts -->
+
+    <!--[if !IE]> -->
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='static/ace/js/jquery.js'>"+"<"+"/script>");
+    </script>
+
+    <!-- <![endif]-->
+
+    <!--[if IE]>
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='static/ace/js/jquery1x.js'>"+"<"+"/script>");
+    </script>
+    <![endif]-->
+    <script type="text/javascript">
+        if('ontouchstart' in document.documentElement) document.write("<script src='static/ace/js/jquery.mobile.custom.js'>"+"<"+"/script>");
+    </script>
+    <script type="text/javascript" src="static/js/jquery.iframe-auto-height.js"></script>
+    <script type="text/javascript" src="static/js/jquery.browser.js"></script>
 </head>
 
 <body class="no-skin">
-<!-- #section:basics/navbar.layout -->
+
+<!-- top -->
 <div id="navbar" class="navbar navbar-default">
     <script type="text/javascript">
         try{ace.settings.check('navbar' , 'fixed')}catch(e){}
@@ -58,7 +79,7 @@
 
         <!-- 标题 -->
         <div class="navbar-header pull-left">
-            <a href="#" class="navbar-brand">
+            <a href="/" class="navbar-brand">
                 <small>
                     <i class="fa fa-leaf"></i>
                     Ace Admin
@@ -69,8 +90,7 @@
         <!-- 右边导航 -->
         <div class="navbar-buttons navbar-header pull-right" role="navigation">
             <ul class="nav ace-nav">
-
-                <!-- 菜单 -->
+                <!-- 个人中心菜单 -->
                 <li class="light-blue">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
                         <img class="nav-user-photo" src="static/ace/avatars/user.jpg" alt="Jason's Photo" />
@@ -80,17 +100,15 @@
 
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
-                            <a href="#">
+                            <a href="/">
                                 <i class="ace-icon fa fa-power-off"></i>
                                 Logout
                             </a>
                         </li>
                     </ul>
                 </li>
-
             </ul>
         </div>
-
     </div>
 </div>
 
@@ -100,128 +118,73 @@
         try{ace.settings.check('main-container' , 'fixed')}catch(e){}
     </script>
 
-    <!-- 菜单图片 -->
+    <!-- 菜单SideBar -->
     <div id="sidebar" class="sidebar responsive">
         <script type="text/javascript">
             try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
         </script>
 
+        <!-- 菜单顶部图标 -->
         <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+            <!-- 最大化显示 -->
             <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
                 <button class="btn btn-success">
                     <i class="ace-icon fa fa-signal"></i>
                 </button>
-
                 <button class="btn btn-info">
                     <i class="ace-icon fa fa-pencil"></i>
                 </button>
-
                 <button class="btn btn-warning">
                     <i class="ace-icon fa fa-users"></i>
                 </button>
-
                 <button class="btn btn-danger">
                     <i class="ace-icon fa fa-cogs"></i>
                 </button>
-
             </div>
-
+            <!-- 最小化显示 -->
             <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
                 <span class="btn btn-success"></span>
-
                 <span class="btn btn-info"></span>
-
                 <span class="btn btn-warning"></span>
-
                 <span class="btn btn-danger"></span>
             </div>
         </div>
 
         <!-- 下拉菜单 -->
         <ul class="nav nav-list">
-            <li class="active">
-                <a href="index.html">
+            <!-- 第一层菜单 -->
+            <!-- active表示选中加粗 -->
+            <li>
+                <a href="sys/index" class="dropdown-toggle">
                     <i class="menu-icon fa fa-tachometer"></i>
                     <span class="menu-text"> Dashboard </span>
                 </a>
                 <b class="arrow"></b>
             </li>
 
-            <li class="">
-                <a href="#" class="dropdown-toggle">
+            <li>
+                <a href="javascript:;" class="dropdown-toggle">
                     <i class="menu-icon fa fa-desktop"></i>
-							<span class="menu-text">
-								UI &amp; Elements
-							</span>
-
+                        <span class="menu-text">
+                            系统 &amp; 设置
+                        </span>
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
-
                 <b class="arrow"></b>
-
                 <ul class="submenu">
                     <li class="">
-                        <a href="#" class="dropdown-toggle">
+                        <a href="/" class="dropdown-toggle">
                             <i class="menu-icon fa fa-caret-right"></i>
-
                             Layouts
                             <b class="arrow fa fa-angle-down"></b>
                         </a>
-
                         <b class="arrow"></b>
-
                         <ul class="submenu">
                             <li class="">
-                                <a href="top-menu.html">
+                                <a href="javascript:;">
                                     <i class="menu-icon fa fa-caret-right"></i>
                                     Top Menu
                                 </a>
-
-                                <b class="arrow"></b>
-                            </li>
-
-                            <li class="">
-                                <a href="two-menu-1.html">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Two Menus 1
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-
-                            <li class="">
-                                <a href="two-menu-2.html">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Two Menus 2
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-
-                            <li class="">
-                                <a href="mobile-menu-1.html">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Default Mobile Menu
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-
-                            <li class="">
-                                <a href="mobile-menu-2.html">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Mobile Menu 2
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-
-                            <li class="">
-                                <a href="mobile-menu-3.html">
-                                    <i class="menu-icon fa fa-caret-right"></i>
-                                    Mobile Menu 3
-                                </a>
-
                                 <b class="arrow"></b>
                             </li>
                         </ul>
@@ -232,115 +195,7 @@
                             <i class="menu-icon fa fa-caret-right"></i>
                             Typography
                         </a>
-
                         <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="elements.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Elements
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="buttons.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Buttons &amp; Icons
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="content-slider.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Content Sliders
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="treeview.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Treeview
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="jquery-ui.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            jQuery UI
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="nestable-list.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Nestable Lists
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="#" class="dropdown-toggle">
-                            <i class="menu-icon fa fa-caret-right"></i>
-
-                            Three Level Menu
-                            <b class="arrow fa fa-angle-down"></b>
-                        </a>
-
-                        <b class="arrow"></b>
-
-                        <ul class="submenu">
-                            <li class="">
-                                <a href="#">
-                                    <i class="menu-icon fa fa-leaf green"></i>
-                                    Item #1
-                                </a>
-
-                                <b class="arrow"></b>
-                            </li>
-
-                            <li class="">
-                                <a href="#" class="dropdown-toggle">
-                                    <i class="menu-icon fa fa-pencil orange"></i>
-
-                                    4th level
-                                    <b class="arrow fa fa-angle-down"></b>
-                                </a>
-
-                                <b class="arrow"></b>
-
-                                <ul class="submenu">
-                                    <li class="">
-                                        <a href="#">
-                                            <i class="menu-icon fa fa-plus purple"></i>
-                                            Add Product
-                                        </a>
-
-                                        <b class="arrow"></b>
-                                    </li>
-
-                                    <li class="">
-                                        <a href="#">
-                                            <i class="menu-icon fa fa-eye pink"></i>
-                                            View Products
-                                        </a>
-
-                                        <b class="arrow"></b>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
                     </li>
                 </ul>
             </li>
@@ -372,16 +227,6 @@
                     </li>
                     <li class="active">Dashboard</li>
                 </ul>
-
-                <!-- 搜索 -->
-                <div class="nav-search" id="nav-search">
-                    <form class="form-search">
-								<span class="input-icon">
-									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-									<i class="ace-icon fa fa-search nav-search-icon"></i>
-								</span>
-                    </form>
-                </div>
             </div>
 
             <!-- 页面内容 -->
@@ -472,6 +317,10 @@
                     </h1>
                 </div>
 
+                <iframe id="iframe_id" width="100%" class="auto-height" scrolling="no" frameborder="0" name="iframe_id" src="pages/user/addRole.jsp"></iframe>
+                <script>
+                    $('iframe.auto-height').iframeAutoHeight({minHeight: 580});
+                </script>
             </div>
         </div>
     </div>
@@ -509,40 +358,17 @@
     </a>
 </div>
 
-<!-- basic scripts -->
 
-<!--[if !IE]> -->
-<script type="text/javascript">
-    window.jQuery || document.write("<script src='static/ace/js/jquery.js'>"+"<"+"/script>");
-</script>
-
-<!-- <![endif]-->
-
-<!--[if IE]>
-<script type="text/javascript">
-    window.jQuery || document.write("<script src='static/ace/js/jquery1x.js'>"+"<"+"/script>");
-</script>
-<![endif]-->
-<script type="text/javascript">
-    if('ontouchstart' in document.documentElement) document.write("<script src='static/ace/js/jquery.mobile.custom.js'>"+"<"+"/script>");
-</script>
 <script src="static/ace/js/bootstrap.js"></script>
 
-<!-- page specific plugin scripts -->
-
-<!--[if lte IE 8]>
-<script src="static/ace/js/excanvas.js"></script>
-<![endif]-->
+<!-- 手机访问时的jquery触摸插件 -->
 <script src="static/ace/js/jquery-ui.custom.js"></script>
 <script src="static/ace/js/jquery.ui.touch-punch.js"></script>
 <!-- ace scripts -->
-<script src="static/ace/js/ace/elements.scroller.js"></script>
+<script type="text/javascript" src="static/ace/js/ace/elements.scroller.js"></script>
 <script src="static/ace/js/ace/elements.colorpicker.js"></script>
-<script src="static/ace/js/ace/elements.fileinput.js"></script>
-<script src="static/ace/js/ace/elements.typeahead.js"></script>
 <script src="static/ace/js/ace/elements.wysiwyg.js"></script>
 <script src="static/ace/js/ace/elements.spinner.js"></script>
-<script src="static/ace/js/ace/elements.treeview.js"></script>
 <script src="static/ace/js/ace/elements.wizard.js"></script>
 <script src="static/ace/js/ace/elements.aside.js"></script>
 <script src="static/ace/js/ace/ace.js"></script>
@@ -556,9 +382,9 @@
 <script src="static/ace/js/ace/ace.settings-rtl.js"></script>
 <script src="static/ace/js/ace/ace.settings-skin.js"></script>
 <script src="static/ace/js/ace/ace.widget-on-reload.js"></script>
-<script src="static/ace/js/ace/ace.searchbox-autocomplete.js"></script>
+<script src="static/ace/js/bootbox.js"></script>
 
 <!-- 与此页相关的内联脚本 -->
-<script type="text/javascript" src="static/javascript/main/main.js"></script>
+<script src="static/javascript/main/main.js"></script>
 </body>
 </html>
