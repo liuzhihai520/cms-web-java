@@ -5,14 +5,14 @@
  * @version v1.0
  */
 $(function(){
-    $("body").on("shown.bs.modal", ".modal", function() {
-        $(this).find('div.modal-dialog').css("top",$(parent.window.document).scrollTop());
+    $('#sub').on('click', function() {
+        $("#form").submit();
     });
-    $('#submit').on('click', function() {
-        top.bootbox.confirm('Are you sure?', function(result) {
-            if(result) {
-            }else{
-            }
-        })
-    })
+    $("#check").click(function(){
+        if($('#check').is(':checked')){
+            $("#status").val(1);
+        }else{
+            $("#status").val(2);
+        }
+    });
 });

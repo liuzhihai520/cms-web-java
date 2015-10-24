@@ -21,32 +21,18 @@
   <!-- ace styles -->
   <link rel="stylesheet" href="static/ace/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
   <script src="static/ace/js/jquery1x.js"></script>
-  <script src="static/ace/js/bootstrap.js"></script>
+  <script src="static/ace/js/jquery.validate.js"></script>
   <script src="static/javascript/user/role.js"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
     <div class="row">
       <div class="col-xs-12">
-        <form class="form-horizontal" role="form">
+        <form action="user/addRole" class="form-horizontal" role="form" id="form" name="form" method="post">
 
           <div class="form-group">
             <label class="col-sm-3 control-label no-padding-right" for="roleName"> 角色名 </label>
             <div class="col-sm-9">
-              <input type="text" id="roleName" placeholder="roleName" class="col-xs-10 col-sm-5">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="roleKey"> roleKey </label>
-            <div class="col-sm-9">
-              <input type="text" id="roleKey" placeholder="roleKey" class="col-xs-10 col-sm-5">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="description"> 描述 </label>
-            <div class="col-sm-9">
-              <input type="text" id="description" placeholder="description" class="col-xs-10 col-sm-5"/>
+              <input type="text" id="roleName" name="roleName" placeholder="roleName" class="col-xs-10 col-sm-5"/>
               <span class="help-inline col-xs-12 col-sm-7">
                   <span class="middle">Inline help text</span>
               </span>
@@ -54,10 +40,31 @@
           </div>
 
           <div class="form-group">
-            <label class="col-sm-3 control-label no-padding-right" for="status"> 状态 </label>
+            <label class="col-sm-3 control-label no-padding-right" for="roleKey"> roleKey </label>
+            <div class="col-sm-9">
+              <input type="text" id="roleKey" name="roleKey" placeholder="roleKey" class="col-xs-10 col-sm-5"/>
+              <span class="help-inline col-xs-12 col-sm-7">
+                  <span class="middle">Inline help text</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="description"> 描述 </label>
+            <div class="col-sm-9">
+              <input type="text" id="description" name="description" placeholder="description" class="col-xs-10 col-sm-5"/>
+              <span class="help-inline col-xs-12 col-sm-7">
+                  <span class="middle">Inline help text</span>
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label no-padding-right" for="check"> 状态 </label>
             <div class="col-sm-9">
                 <label>
-                    <input id="status" name="status" class="ace ace-switch ace-switch-4 btn-empty" type="checkbox">
+                    <input type="hidden" id="status" name="status" value="1"/>
+                    <input id="check" name="check" checked="checked" class="ace ace-switch ace-switch-4 btn-empty" type="checkbox">
                     <span class="lbl" style="margin-top: 5px;"></span>
                 </label>
             </div>
@@ -65,7 +72,7 @@
 
           <div class="clearfix form-actions">
             <div class="col-md-offset-3 col-md-9">
-              <button class="btn btn-info" type="button" id="submit">
+              <button class="btn btn-info" type="button" id="sub">
                 <i class="ace-icon fa fa-check bigger-110"></i>
                 Submit
               </button>

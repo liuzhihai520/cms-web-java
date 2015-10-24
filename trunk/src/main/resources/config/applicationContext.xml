@@ -48,10 +48,8 @@
     <context:component-scan base-package="com.trunk.service"></context:component-scan>
     
     <!-- jdbcTemplate -->
-    <bean id="jdbc" class="org.springframework.jdbc.core.JdbcTemplate">
-        <constructor-arg>
-            <ref bean="dataSource" />
-        </constructor-arg>
+    <bean id="jdbc" class="com.trunk.util.JdbcTempCore">
+        <property name="dataSource" ref="dataSource"/>
     </bean>
  	
  	<!-- 事物 -->
