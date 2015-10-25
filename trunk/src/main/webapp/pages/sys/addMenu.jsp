@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
   String path = request.getContextPath();
@@ -64,6 +65,9 @@
         <div class="col-sm-9">
           <select class="col-xs-5" id="resList" name="parentId">
             <option value="0">------顶级目录------</option>
+            <c:forEach items="${treeList}" var="obj">
+              <option value="${obj.id}">${obj.name}</option>
+            </c:forEach>
           </select>
           <span class="help-inline col-xs-12 col-sm-7">
               <span class="middle">Inline help text</span>

@@ -18,7 +18,13 @@ public class SysService extends BaseService{
 
     //顶级菜单列表查询
     public List<Map<String,Object>> topMenuList(){
-        String sql = "select * from t_sys_menu";
+        String sql = "select * from t_sys_menu where parentId = 0";
+        return jdbcTemplate.queryForList(sql);
+    }
+
+    //所有菜单查询
+    public List<Map<String,Object>> allMenuList(){
+        String sql = "select * from t_sys_menu where type != 3 order by level desc";
         return jdbcTemplate.queryForList(sql);
     }
 

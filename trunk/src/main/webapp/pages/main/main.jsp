@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -156,12 +157,26 @@
             <!-- 第一层菜单 -->
             <!-- active表示选中加粗 -->
             <c:forEach items="${menuList}" var="obj">
-                <li onclick="subMenu(${obj.id})">
+                <li>
                     <a href="javascript:;" class="dropdown-toggle">
                         <i class="menu-icon fa ${obj.icon}"></i>
                         <span class="menu-text"> ${obj.name} </span>
+                        <b class="arrow fa fa-angle-down"></b>
                     </a>
                     <b class="arrow"></b>
+                    <c:if test="${obj.children != null and fn:length(obj.children) > 0}">
+                        <ul class="submenu">
+                            <c:forEach items="${obj.children}" var="child">
+                                <li class="">
+                                    <a href="${child.url}">
+                                        <i class="menu-icon fa fa-caret-right"></i>
+                                            ${child.name}
+                                    </a>
+                                    <b class="arrow"></b>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
                 </li>
             </c:forEach>
         </ul>
@@ -282,7 +297,7 @@
                     </h1>
                 </div>
 
-                <iframe id="iframe_id" width="100%" class="auto-height" scrolling="no" frameborder="0" name="iframe_id" src="pages/sys/addMenu.jsp"></iframe>
+                <iframe id="iframe_id" width="100%" class="auto-height" scrolling="no" frameborder="0" name="iframe_id" src="sys/toAddMenu"></iframe>
                 <script>
                     $('iframe.auto-height').iframeAutoHeight({minHeight: 580});
                 </script>
