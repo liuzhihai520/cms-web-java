@@ -6,6 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 方法描述:用户管理
  *
@@ -19,6 +23,14 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    //用户管理列表
+    @RequestMapping("/userList")
+    public String userList(HttpServletRequest request){
+        List<Map<String,Object>> userList = userService.userList();
+        request.setAttribute("userList",userList);
+        return "user/userList";
+    }
 
     //新增用户
     @RequestMapping("/initAddUser")

@@ -7,3 +7,8 @@
 jQuery(function($) {
     $('iframe_id').iframeAutoHeight({debug: true});
 });
+//设置路劲
+function url(url){
+    $('#iframe_id').attr("src",url);
+}
+

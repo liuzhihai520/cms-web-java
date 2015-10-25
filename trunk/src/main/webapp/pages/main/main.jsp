@@ -161,14 +161,16 @@
                     <a href="javascript:;" class="dropdown-toggle">
                         <i class="menu-icon fa ${obj.icon}"></i>
                         <span class="menu-text"> ${obj.name} </span>
-                        <b class="arrow fa fa-angle-down"></b>
+                        <c:if test="${obj.children != null and fn:length(obj.children) > 0}">
+                            <b class="arrow fa fa-angle-down"></b>
+                        </c:if>
                     </a>
                     <b class="arrow"></b>
                     <c:if test="${obj.children != null and fn:length(obj.children) > 0}">
                         <ul class="submenu">
                             <c:forEach items="${obj.children}" var="child">
                                 <li class="">
-                                    <a href="${child.url}">
+                                    <a href="javascript:;" onclick="url('${child.url}')">
                                         <i class="menu-icon fa fa-caret-right"></i>
                                             ${child.name}
                                     </a>
@@ -297,7 +299,7 @@
                     </h1>
                 </div>
 
-                <iframe id="iframe_id" width="100%" class="auto-height" scrolling="no" frameborder="0" name="iframe_id" src="sys/toAddMenu"></iframe>
+                <iframe id="iframe_id" width="100%" class="auto-height" scrolling="no" frameborder="0" name="iframe_id" src=""></iframe>
                 <script>
                     $('iframe.auto-height').iframeAutoHeight({minHeight: 580});
                 </script>
