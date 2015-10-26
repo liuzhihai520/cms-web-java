@@ -1,5 +1,6 @@
 package com.trunk.controller;
 
+import com.trunk.bean.User;
 import com.trunk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +41,21 @@ public class UserController {
         List<Map<String,Object>> roleList = userService.roleList();
         request.setAttribute("roleList",roleList);
         return "user/user";
+    }
+
+    //新增用户
+    @RequestMapping("/addUser")
+    public void addUser(HttpServletRequest request,HttpServletResponse response,User user){
+        PrintWriter out = null;
+        int status = 0;
+        try {
+            out = response.getWriter();
+            userService.addUser(user);
+        }catch (Exception e){
+            e.printStackTrace();
+            status = -1;
+        }
+        out.print("<script type=\"text/javascript\">parent.callback('"+status+"')</script>");
     }
 
 

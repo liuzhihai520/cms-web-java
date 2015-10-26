@@ -1,6 +1,14 @@
 package com.trunk.service;
 
 import com.trunk.bean.User;
+import com.trunk.util.Common;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,19 +40,32 @@ public class UserService extends BaseService{
     //新增用户
     @Transactional
     public void addUser(User user){
-
         //随机生成4位字符串
-
+        String salt = Common.getRandomString(4);
         //密码加盐
-
+        String pas = Common.MD5(user.getPassword())+salt;
         //重新生成MD5
-
+        String password = Common.MD5(pas);
         //插入用户表
         String sql = "insert into t_sys_user(username,accountname,password,salt,status,description)values(?,?,?,?,?,?)";
-        jdbcTemplate.update(sql,new Object[]{user.getUsername(),user.getAccountname(),"","",user.getStatus(),user.getDescription()});
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(
+                new PreparedStatementCreator() {
+                    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                        PreparedStatement ps = connection.prepareStatement(sql, new String[] {"id"});
+                        ps.setString(1, user.getUsername());
+                        ps.setString(2, user.getAccountname());
+                        ps.setString(3, password);
+                        ps.setString(4, salt);
+                        ps.setInt(5, user.getStatus());
+                        ps.setString(6, user.getDescription());
+                        return ps;
+                    }
+                },
+        keyHolder);
         //插入用户角色表
         String sql1 = "insert into t_sys_user_role(userId,roleId) values(?,?)";
-        jdbcTemplate.update(sql1,new Object[]{0,0});
+        jdbcTemplate.update(sql1,new Object[]{keyHolder.getKey().longValue(),user.getRole()});
     }
 
     //增加用户角色
@@ -52,6 +73,4 @@ public class UserService extends BaseService{
         String sql = "insert into t_sys_role (name,roleKey,status,description) values (?,?,?,?)";
         jdbcTemplate.update(sql,new Object[]{name,roleKey,status,description});
     }
-
-
 }

@@ -18,24 +18,24 @@
   <link rel="stylesheet" href="static/ace/css/ace-fonts.css" />
   <link rel="stylesheet" href="static/ace/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
   <script src="static/ace/js/jquery1x.js"></script>
-  <script src="static/javascript/user/addUser.js"></script>
-
+  <script src="static/javascript/user/user.js"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
     <div class="row">
         <div class="col-xs-12">
-            <form class="form-horizontal" role="form" action="" id="form" name="form" method="post">
+            <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
+            <form class="form-horizontal" role="form" action="user/addUser" id="form" name="form" method="post" target="hidden_frame">
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right" for="username"> 用户名: </label>
                     <div class="col-sm-9">
-                        <input type="text" id="username" placeholder="用户名" class="col-xs-10 col-sm-5"/>
+                        <input type="text" id="username" name="username" placeholder="用户名" class="col-xs-10 col-sm-5"/>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="accountname"> 昵称: </label>
+                    <label class="col-sm-3 control-label no-padding-right" for="accountname"> 账号: </label>
                     <div class="col-sm-9">
-                        <input type="text" id="accountname" placeholder="昵称" class="col-xs-10 col-sm-5"/>
+                        <input type="text" id="accountname" name="accountname" placeholder="账号" class="col-xs-10 col-sm-5"/>
                     </div>
                 </div>
 
