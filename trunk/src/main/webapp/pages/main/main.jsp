@@ -156,8 +156,8 @@
         <ul class="nav nav-list">
             <!-- 第一层菜单 -->
             <!-- active表示选中加粗 -->
-            <c:forEach items="${menuList}" var="obj">
-                <li>
+            <c:forEach items="${menuList}" var="obj" varStatus="status">
+                <li class="" onclick="setActive(this)">
                     <a href="javascript:;" class="dropdown-toggle">
                         <i class="menu-icon fa ${obj.icon}"></i>
                         <span class="menu-text"> ${obj.name} </span>
@@ -169,10 +169,10 @@
                     <c:if test="${obj.children != null and fn:length(obj.children) > 0}">
                         <ul class="submenu">
                             <c:forEach items="${obj.children}" var="child">
-                                <li class="">
+                                <li class="" onclick="setActive(this)">
                                     <a href="javascript:;" onclick="url('${child.url}')">
                                         <i class="menu-icon fa fa-caret-right"></i>
-                                            ${child.name}
+                                        ${child.name}
                                     </a>
                                     <b class="arrow"></b>
                                 </li>

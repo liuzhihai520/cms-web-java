@@ -4,11 +4,18 @@
  * @date 2015/10/24
  * @version v1.0
  */
-jQuery(function($) {
+$(function($) {
     $('iframe_id').iframeAutoHeight({debug: true});
 });
+
 //设置路劲
 function url(url){
     $('#iframe_id').attr("src",url);
+}
+
+//设置class元素
+function setActive(obj){
+    //$(".nav .nav-list li").removeClass("active");
+    //$(obj).addClass("active");
 }
 

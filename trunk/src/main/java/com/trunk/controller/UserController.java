@@ -32,11 +32,15 @@ public class UserController {
         return "user/userList";
     }
 
-    //新增用户
-    @RequestMapping("/initAddUser")
-    public String initAddUser(){
-        return "user/addUser";
+    //初始化用户界面
+    @RequestMapping("/initUser")
+    public String initAddUser(HttpServletRequest request){
+        List<Map<String,Object>> roleList = userService.roleList();
+        request.setAttribute("roleList",roleList);
+        return "user/user";
     }
+
+
 
     //新增角色
     @RequestMapping("/addRole")
@@ -45,6 +49,11 @@ public class UserController {
                           @RequestParam(required = true, defaultValue = "1") int status,
                           @RequestParam(required = true, defaultValue = "") String description){
         userService.addRole(roleName,roleKey,status,description);
-        return "user/addRole";
+        return "user/role";
+    }
+
+    @RequestMapping("/test")
+    public String test(){
+        return "user/test";
     }
 }

@@ -11,54 +11,90 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta charset="utf-8"/>
     <title>系统管理 - 用户管理</title>
-
     <link rel="stylesheet" href="static/ace/css/bootstrap.css"/>
     <link rel="stylesheet" href="static/ace/css/font-awesome.css"/>
     <link rel="stylesheet" href="static/ace/css/ace-fonts.css"/>
     <link rel="stylesheet" href="static/ace/css/ace.css" class="ace-main-stylesheet" id="main-ace-style"/>
     <script src="static/ace/js/jquery1x.js"></script>
-    <script src="static/ace/js/dataTables/jquery.dataTables.js "></script>
-    <script src="static/ace/js/dataTables/jquery.dataTables.bootstrap.js"></script>
+    <script src="static/ace/js/bootstrap.js"></script>
+    <script src="static/ace/js/ace/ace.js"></script>
+    <script src="static/ace/js/ace/elements.colorpicker.js"></script>
+    <script src="static/ace/js/ace/ace.widget-box.js"></script>
     <script src="static/javascript/user/userList.js"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
 <div class="row">
-    <button class="btn btn-white btn-info btn-round" style="margin-left: 12px;margin-bottom: 10px;">
+    <button id="addUser" class="btn btn-white btn-info btn-round" style="margin-left: 12px;margin-bottom: 10px;">
         <i class="ace-icon fa fa-floppy-o bigger-120 blue"></i>
         新增
     </button>
     <div class="col-xs-12">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>用户名</th>
-                    <th>账号</th>
-                    <th>所属角色</th>
-                    <th>账号状态</th>
-                    <th>时间</th>
-                    <th>描述</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${userList}" var="obj">
-                    <tr>
-                        <th scope="row">${obj.id}</th>
-                        <td>${obj.name}</td>
-                        <td>${obj.accountname}</td>
-                        <td>admin</td>
-                        <td>${obj.status}</td>
-                        <td>${obj.createTime}</td>
-                        <td>${obj.description}</td>
-                        <td>操作内容</td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+        <div class="widget-box widget-color-blue2 ui-sortable-handle">
+            <!-- 设置table颜色 -->
+            <div class="widget-header">
+                <h5 class="widget-title bigger lighter">
+                    <i class="ace-icon fa fa-table"></i>
+                    Tables &amp; Colors
+                </h5>
+                <!-- 颜色列表 -->
+                <div class="widget-toolbar widget-toolbar-light no-border">
+                    <select id="simple-colorpicker-1" class="hide">
+                        <option selected="" data-class="blue" value="#307ECC">#307ECC</option>
+                        <option data-class="blue2" value="#5090C1">#5090C1</option>
+                        <option data-class="blue3" value="#6379AA">#6379AA</option>
+                        <option data-class="green" value="#82AF6F">#82AF6F</option>
+                        <option data-class="green2" value="#2E8965">#2E8965</option>
+                        <option data-class="green3" value="#5FBC47">#5FBC47</option>
+                        <option data-class="red" value="#E2755F">#E2755F</option>
+                        <option data-class="red2" value="#E04141">#E04141</option>
+                        <option data-class="red3" value="#D15B47">#D15B47</option>
+                        <option data-class="orange" value="#FFC657">#FFC657</option>
+                        <option data-class="purple" value="#7E6EB0">#7E6EB0</option>
+                        <option data-class="pink" value="#CE6F9E">#CE6F9E</option>
+                        <option data-class="dark" value="#404040">#404040</option>
+                        <option data-class="grey" value="#848484">#848484</option>
+                        <option data-class="default" value="#EEE">#EEE</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- table内容 -->
+            <div class="widget-body">
+                <div class="widget-main no-padding">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead class="thin-border-bottom">
+                        <tr>
+                            <th><i></i>#</th>
+                            <th><i class="ace-icon fa fa-user"></i>用户名</th>
+                            <th><i class="ace-icon fa fa-user"></i>账号</th>
+                            <th><i></i>所属角色</th>
+                            <th><i></i>账号状态</th>
+                            <th><i></i>时间</th>
+                            <th><i></i>描述</th>
+                            <th><i></i>操作</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <c:forEach items="${userList}" var="obj">
+                            <tr>
+                                <th>${obj.id}</th>
+                                <td>${obj.name}</td>
+                                <td>${obj.accountname}</td>
+                                <td>admin</td>
+                                <td>${obj.status}</td>
+                                <td>${obj.createTime}</td>
+                                <td>${obj.description}</td>
+                                <td>操作内容</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
         <nav>
-            <span>总页数:0</span>
-            <ul class="pagination" style="float: right;padding-right: 3px;margin-top: -2px;">
+            <ul class="pagination" style="float: right;padding-right: 3px;">
                 <li>
                     <a href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
