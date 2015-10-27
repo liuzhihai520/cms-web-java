@@ -1,6 +1,7 @@
 package com.trunk.service;
 
 import com.trunk.bean.Menu;
+import com.trunk.util.Pages;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +33,18 @@ public class SysService extends BaseService{
     public List<Map<String,Object>> menuList(long menuId){
         String sql = "select * from t_sys_menu where parentId = ?";
         return jdbcTemplate.queryForList(sql,new Object[]{menuId});
+    }
+
+    //菜单列表
+    public Pages<Map<String,Object>> menuList(int index,int pageNumber){
+        String str = "select count(0) as getCount from t_sys_menu";
+        int count = jdbcTemplate.queryForObject(str,Integer.class);
+
+        String sql = "SELECT * FROM t_sys_menu limit ?,10";
+        List<Map<String,Object>> list = jdbcTemplate.queryForList(sql,new Object[]{index});
+        Pages<Map<String, Object>> page = new Pages<>(count, pageNumber,10);
+        page.setList(list);
+        return page;
     }
 
     //新增菜单

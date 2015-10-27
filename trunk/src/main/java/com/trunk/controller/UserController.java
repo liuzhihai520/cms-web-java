@@ -35,6 +35,14 @@ public class UserController {
         return "user/userList";
     }
 
+    //角色管理列表
+    @RequestMapping("/roleList")
+    public String roleList(HttpServletRequest request){
+        List<Map<String,Object>> list = userService.roleList();
+        request.setAttribute("list",list);
+        return "user/roleList";
+    }
+
     //初始化用户界面
     @RequestMapping("/initUser")
     public String initAddUser(HttpServletRequest request){
@@ -56,14 +64,6 @@ public class UserController {
             status = -1;
         }
         out.print("<script type=\"text/javascript\">parent.callback('"+status+"')</script>");
-    }
-
-    //角色管理列表
-    @RequestMapping("/roleList")
-    public String roleList(HttpServletRequest request){
-        List<Map<String,Object>> list = userService.roleList();
-        request.setAttribute("list",list);
-        return "user/roleList";
     }
 
     //新增角色
