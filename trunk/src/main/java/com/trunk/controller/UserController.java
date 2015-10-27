@@ -58,7 +58,13 @@ public class UserController {
         out.print("<script type=\"text/javascript\">parent.callback('"+status+"')</script>");
     }
 
-
+    //角色管理列表
+    @RequestMapping("/roleList")
+    public String roleList(HttpServletRequest request){
+        List<Map<String,Object>> list = userService.roleList();
+        request.setAttribute("list",list);
+        return "user/roleList";
+    }
 
     //新增角色
     @RequestMapping("/addRole")
@@ -70,6 +76,7 @@ public class UserController {
         return "user/role";
     }
 
+    //测试模块
     @RequestMapping("/test")
     public String test(){
         return "user/test";
