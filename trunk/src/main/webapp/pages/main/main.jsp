@@ -29,6 +29,10 @@
     <!-- ace styles -->
     <link rel="stylesheet" href="static/ace/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
 
+    <!-- tabclose -->
+    <link rel="stylesheet" href="static/ace/css/tabbale_close.css" class="stylesheet"  />
+    <link rel="stylesheet" href="static/ace/css/font-awesome.min.css" class="stylesheet"  />
+
     <!--[if lte IE 9]>
     <link rel="stylesheet" href="static/ace/css/ace-part2.css" class="ace-main-stylesheet" />
     <![endif]-->
@@ -170,7 +174,7 @@
                         <ul class="submenu">
                             <c:forEach items="${obj.children}" var="child">
                                 <li class="" onclick="setActive(this)">
-                                    <a href="javascript:;" onclick="url('${child.url}')">
+                                    <a href="javascript:;" onclick="url('${child.url}', '${child.name}')">
                                         <i class="menu-icon fa fa-caret-right"></i>
                                         ${child.name}
                                     </a>
@@ -288,7 +292,7 @@
                     </div>
                 </div>
 
-                <!-- 导航显示 -->
+                <!-- 导航显示
                 <div class="page-header">
                     <h1>
                         Dashboard
@@ -297,9 +301,43 @@
                             overview &amp; stats
                         </small>
                     </h1>
-                </div>
+                </div> -->
 
-                <iframe id="iframe_id" width="100%" class="auto-height" scrolling="no" frameborder="0" name="iframe_id" src=""></iframe>
+                <div class="tabbable" id="main_tab">
+                    <ul class="nav nav-tabs">
+                        <li style="display:none;" class="active">
+                            <a data-toggle="tab" href="#search0">占位标记</a>
+														<span class="closeico">
+															<i  class="icon-remove" class="close" ></i>
+														</span>
+                        </li>
+                        <li class="active">
+
+                            <a data-toggle="tab" href="#search1">
+                                王小明
+                                <span class="closeico"><i  class="icon-remove" class="close" ></i></span>
+                            </a>
+
+                        </li>
+
+                        <li >
+                            <a data-toggle="tab" href="#search2"  id="a123">
+                                name：chuck
+                                <span class="closeico"><i  class="icon-remove" class="close" ></i></span>
+                            </a>
+                        </li>
+                        <li >
+                            <a data-toggle="tab" href="#search3"  id="a1234">
+                                aaaaaaa
+                                <span class="closeico"><i  class="icon-remove" class="close" ></i></span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="search0" class="tab-pane active" style="display:none;"> <p>占位标记</p>
+                        </div>
+                    </div>
+                </div>
                 <script>
                     $('iframe.auto-height').iframeAutoHeight({minHeight: 580});
                 </script>
@@ -368,5 +406,6 @@
 
 <!-- 与此页相关的内联脚本 -->
 <script src="static/javascript/main/main.js"></script>
+<script src="static/javascript/common/Tab.js"></script>
 </body>
 </html>

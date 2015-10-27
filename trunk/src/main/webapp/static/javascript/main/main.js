@@ -4,13 +4,16 @@
  * @date 2015/10/24
  * @version v1.0
  */
+var tab;
 $(function($) {
+    tab = new Tab();
     $('iframe_id').iframeAutoHeight({debug: true});
 });
 
 //设置路劲
-function url(url){
-    $('#iframe_id').attr("src",url);
+function url(url,title){
+    tab.addItem({title:title, url: url});
+    //$('#iframe_id').attr("src",url);
 }
 
 //设置class元素
