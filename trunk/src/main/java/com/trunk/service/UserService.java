@@ -27,7 +27,7 @@ public class UserService extends BaseService{
 
     //用户列表
     public List<Map<String,Object>> userList(){
-        String sql = "select * from t_sys_user";
+        String sql = "SELECT a.*,c.name AS role FROM t_sys_user a LEFT JOIN t_sys_user_role b ON a.id=b.userId LEFT JOIN t_sys_role c ON b.roleId = c.id";
         return jdbcTemplate.queryForList(sql);
     }
 

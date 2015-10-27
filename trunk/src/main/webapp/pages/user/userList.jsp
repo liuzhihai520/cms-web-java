@@ -79,13 +79,27 @@
                         <c:forEach items="${userList}" var="obj">
                             <tr>
                                 <th>${obj.id}</th>
-                                <td>${obj.name}</td>
+                                <td>${obj.username}</td>
                                 <td>${obj.accountname}</td>
-                                <td>admin</td>
+                                <td>${obj.role}</td>
                                 <td>${obj.status}</td>
                                 <td>${obj.createTime}</td>
                                 <td>${obj.description}</td>
-                                <td>操作内容</td>
+                                <td>
+                                    <div class="hidden-sm hidden-xs action-buttons">
+                                        <a class="blue" href="#">
+                                            <i class="ace-icon fa fa-search-plus bigger-130"></i>
+                                        </a>
+
+                                        <a class="green" href="#">
+                                            <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                            <iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe></a>
+
+                                        <a class="red" href="#">
+                                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                        </a>
+                                    </div>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>

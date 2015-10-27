@@ -5,7 +5,12 @@
  * @version v1.0
  */
 $(function(){
-   $("#login").click(function(){
+    var _topWin = window;
+    while (_topWin != _topWin.parent.window) {
+        _topWin = _topWin.parent.window;
+    }
+    if (window != _topWin)_topWin.document.location.href = '/';
+    $("#login").click(function(){
       $("#form").submit();
    });
 });
