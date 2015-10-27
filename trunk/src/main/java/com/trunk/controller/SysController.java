@@ -93,4 +93,22 @@ public class SysController {
         sysService.addMenu(menu);
         return "sys/addMenu";
     }
+
+    //测试菜单
+    @RequestMapping("/treeView")
+    @ResponseBody
+    public String TreeView(HttpServletRequest request){
+        //菜单列表
+        List<Map<String,Object>> mps = sysService.allMenuList();
+        List<TreeObject> list = new ArrayList<TreeObject>();
+        for(int i=0;i<mps.size();i++){
+            Map<String,Object> map = mps.get(i);
+            TreeObject treeObject = Common.map2Bean(map, TreeObject.class);
+            list.add(treeObject);
+        }
+        TreeUtil treeUtil = new TreeUtil();
+        List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0);
+        request.setAttribute("ns",JSON.toJSONString(ns));
+        return "user/test";
+    }
 }
