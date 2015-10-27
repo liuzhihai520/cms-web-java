@@ -64,6 +64,10 @@ public class SysController {
         int index = (pageNumber - 1) * 10;
         Pages<Map<String,Object>> page = sysService.menuList(index,pageNumber);
         request.setAttribute("list",page.getList());
+        request.setAttribute("page", page);
+        request.setAttribute("hasPreviousPage", page.hasPreviousPage());
+        request.setAttribute("hasNextPage", page.hasNextPage());
+        request.setAttribute("navigatePageNumbers", page.getNavigatePageNumbers());
         return "sys/menuList";
     }
 

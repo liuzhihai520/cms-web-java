@@ -81,16 +81,16 @@
                                 <td>${obj.description}</td>
                                 <td>
                                     <div class="hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="#">
-                                            <i class="ace-icon fa fa-search-plus bigger-130"></i>
-                                        </a>
-
                                         <a class="green" href="#">
                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
-                                            <iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe></a>
+                                        </a>
 
                                         <a class="red" href="#">
                                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                        </a>
+
+                                        <a class="blue" href="#">
+                                            <i class="ace-icon fa fa-key bigger-130"></i>
                                         </a>
                                     </div>
                                 </td>

@@ -107,21 +107,50 @@
         </div>
         <nav>
             <ul class="pagination" style="float: right;padding-right: 3px;">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
+                <c:choose>
+                    <c:when test="${hasPreviousPage}">
+                        <li>
+                            <a href="sys/menuList?pageNumber=${page.pageNumber-1}" aria-label="Previous">
+                                <span aria-hidden="true">← prev</span>
+                            </a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="disabled">
+                            <a href="javascript:;" aria-label="Previous">
+                                <span aria-hidden="true">← prev</span>
+                            </a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+
+                <c:forEach items="${navigatePageNumbers}" var="obj">
+                    <c:choose>
+                        <c:when test="${obj == page.pageNumber}">
+                            <li><a href="javascript:void(0)" class="active">${obj}</a></li>
+                        </c:when>
+                        <c:otherwise>
+                            <li><a href="sys/menuList?pageNumber=${obj}">${obj}</a></li>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+
+                <c:choose>
+                    <c:when test="${hasNextPage}">
+                        <li>
+                            <a href="user/menuList?pageNumber=${page.pageNumber+1}" aria-label="Next">
+                                <span aria-hidden="true">next → </span>
+                            </a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="disabled">
+                            <a href="javascript:;" aria-label="Next">
+                                <span aria-hidden="true">next → </span>
+                            </a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
             </ul>
         </nav>
     </div>
