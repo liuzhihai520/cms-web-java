@@ -331,6 +331,6 @@
     });
   });
 </script>
-<script src="static/javascript/login/login.js"></script>
+<script src="static/javascript/login/login.js?v=11111111"></script>
 </body>
 </html>

@@ -9,7 +9,9 @@ $(function(){
     while (_topWin != _topWin.parent.window) {
         _topWin = _topWin.parent.window;
     }
-    if (window != _topWin)_topWin.document.location.href = '/';
+    if (window != _topWin){
+        _topWin.document.location.href = "/trunk";
+    }
     $("#login").click(function(){
       $("#form").submit();
    });
