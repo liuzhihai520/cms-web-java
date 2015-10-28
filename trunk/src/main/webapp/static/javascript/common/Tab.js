@@ -29,6 +29,9 @@ var Tab = function(config) {
 
         tab.find(".closeico").click(function(e) {
             var index = tabTitle.find("li").index(tab);
+            if(index == tabTitle.find("li").length - 1){
+                index--;
+            }
             iframe.remove();
             tab.remove();
             tabItem.remove();
