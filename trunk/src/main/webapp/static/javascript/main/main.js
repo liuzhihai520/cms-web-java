@@ -11,8 +11,8 @@ $(function($) {
 });
 
 //设置路劲
-function url(url,title){
-    tab.addItem({title:title, url: url});
+function url(id, url,title){
+    tab.addItem({id:id, title:title, url: url});
     //$('#iframe_id').attr("src",url);
 }
 

@@ -174,7 +174,7 @@
                         <ul class="submenu">
                             <c:forEach items="${obj.children}" var="child">
                                 <li class="" onclick="setActive(this)">
-                                    <a href="javascript:;" onclick="url('${child.url}', '${child.name}')">
+                                    <a href="javascript:;" onclick="url(${child.id},'${child.url}', '${child.name}')">
                                         <i class="menu-icon fa fa-caret-right"></i>
                                         ${child.name}
                                     </a>
