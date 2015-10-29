@@ -89,7 +89,7 @@
                                                 <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                             </a>
 
-                                            <a class="blue" href="javascript:;" onclick="role()">
+                                            <a class="blue" href="sys/roleRootList?role_id=${obj.id}">
                                                 <i class="ace-icon fa fa-key bigger-130"></i>
                                             </a>
                                         </div>

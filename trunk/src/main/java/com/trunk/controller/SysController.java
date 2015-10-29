@@ -94,6 +94,14 @@ public class SysController {
         return "sys/addMenu";
     }
 
+    //查询角色权限
+    @RequestMapping("/roleRootList")
+    public String roleRootList(HttpServletRequest request,long role_id){
+        List<TreeObject> list = sysService.roleRootList(role_id);
+        request.setAttribute("treeList",JSON.toJSONString(list));
+        return "sys/roleRoot";
+    }
+
     //测试菜单
     @RequestMapping("/treeView")
     @ResponseBody

@@ -1,9 +1,14 @@
 package com.trunk.service;
 
 import com.trunk.bean.Menu;
+import com.trunk.bean.TreeObject;
+import com.trunk.util.Common;
+import com.trunk.util.Convert;
 import com.trunk.util.Pages;
+import com.trunk.util.TreeUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -53,5 +58,35 @@ public class SysService extends BaseService{
                      "values(?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql,new Object[]{menu.getName(),menu.getParentId(),menu.getResKey(),
                 menu.getType(),menu.getUrl(),menu.getLevel(),menu.getIcon(),menu.getIshide(),menu.getDescription()});
+    }
+
+    //查询角色权限
+    public List<TreeObject> roleRootList(long role){
+        List<TreeObject> list = new ArrayList<>();
+        //查询所有菜单
+        String sql = "select * from t_sys_menu where type != 3 order by level desc";
+        List<Map<String,Object>> menuList = jdbcTemplate.queryForList(sql);
+        //查询角色权限菜单
+        String roleSQL = "SELECT c.* FROM t_sys_user_role a " +
+                         "LEFT JOIN t_sys_res_user b ON a.userId=b.userId " +
+                         "LEFT JOIN t_sys_menu c ON b.resId=c.id where a.roleId = ?";
+        List<Map<String,Object>> roleMenuList = jdbcTemplate.queryForList(roleSQL,new Object[]{role});
+        for(int i=0;i<menuList.size();i++){
+            Map<String,Object> mMap = menuList.get(i);
+            long mRes_id = Convert.strToLong(mMap.get("id")+"",0);
+            for(int j=0;j<roleMenuList.size();j++){
+                Map<String,Object> rMap = roleMenuList.get(j);
+                long rRes_id = Convert.strToLong(rMap.get("id") + "", 0);
+                if(mRes_id == rRes_id){
+                    mMap.put("checked",true);
+                    break;
+                }
+            }
+            TreeObject treeObject = Common.map2Bean(mMap, TreeObject.class);
+            list.add(treeObject);
+        }
+        TreeUtil treeUtil = new TreeUtil();
+        List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0, "");
+        return ns;
     }
 }
