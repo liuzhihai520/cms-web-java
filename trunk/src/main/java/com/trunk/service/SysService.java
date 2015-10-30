@@ -1,11 +1,9 @@
 package com.trunk.service;
 
+import com.alibaba.fastjson.JSON;
 import com.trunk.bean.Menu;
 import com.trunk.bean.TreeObject;
-import com.trunk.util.Common;
-import com.trunk.util.Convert;
-import com.trunk.util.Pages;
-import com.trunk.util.TreeUtil;
+import com.trunk.util.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -86,7 +84,6 @@ public class SysService extends BaseService{
             TreeObject treeObject = Common.map2Bean(mMap, TreeObject.class);
             list.add(treeObject);
         }
-        System.out.println(list);
         TreeUtil treeUtil = new TreeUtil();
         List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0, "");
         return ns;

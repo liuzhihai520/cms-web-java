@@ -105,7 +105,7 @@ public class SysController {
         List<TreeObject> list = sysService.roleRootList(role_id);
         System.out.println(JSON.toJSONString(list));
         request.setAttribute("roleId",role_id);
-        request.setAttribute("treeList",JSON.toJSONString(list));
+        request.setAttribute("treeList",ResultUtil.toJSON(list));
         return "sys/roleRoot";
     }
 
