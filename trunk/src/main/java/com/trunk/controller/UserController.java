@@ -2,6 +2,7 @@ package com.trunk.controller;
 
 import com.trunk.bean.User;
 import com.trunk.service.UserService;
+import com.trunk.util.Pages;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,16 +42,24 @@ public class UserController {
 
     //角色管理列表
     @RequestMapping("/roleList")
-    public String roleList(HttpServletRequest request){
-        List<Map<String,Object>> list = userService.roleList();
-        request.setAttribute("list",list);
+    public String roleList(HttpServletRequest request,
+                             @RequestParam(required = false, defaultValue = "1") int pageNumber){
+        int index = (pageNumber - 1) * 10;
+        Pages<Map<String,Object>> page = userService.roleList(index,pageNumber,10);
+        request.setAttribute("list",page.getList());
+        request.setAttribute("page", page);
+        request.setAttribute("hasPreviousPage", page.hasPreviousPage());
+        request.setAttribute("hasNextPage", page.hasNextPage());
+        request.setAttribute("navigatePageNumbers", page.getNavigatePageNumbers());
         return "user/roleList";
     }
 
     //初始化用户界面
     @RequestMapping("/initUser")
     public String initAddUser(HttpServletRequest request){
-        List<Map<String,Object>> roleList = userService.roleList();
+        int index = (1 - 1) * 10;
+        Pages<Map<String,Object>> page = userService.roleList(index,1,100);
+        List<Map<String,Object>> roleList = page.getList();
         request.setAttribute("roleList",roleList);
         return "user/user";
     }

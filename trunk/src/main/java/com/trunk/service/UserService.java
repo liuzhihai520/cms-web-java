@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.trunk.util.Pages;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -32,9 +33,16 @@ public class UserService extends BaseService{
     }
 
     //角色列表
-    public List<Map<String,Object>> roleList(){
-        String sql = "select * from t_sys_role";
-        return jdbcTemplate.queryForList(sql);
+    public Pages<Map<String,Object>> roleList(int index,int limit,int pageNumber){
+        //角色数
+        String str = "select count(0) as getCount from t_sys_role";
+        int count = jdbcTemplate.queryForObject(str,Integer.class);
+        //集合
+        String sql = "select * from t_sys_role limit ?,?";
+        List<Map<String,Object>> list = jdbcTemplate.queryForList(sql,new Object[]{index,limit});
+        Pages<Map<String, Object>> page = new Pages<>(count, pageNumber,10);
+        page.setList(list);
+        return page;
     }
 
     //新增用户
