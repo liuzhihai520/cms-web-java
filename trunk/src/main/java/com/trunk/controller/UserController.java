@@ -5,6 +5,7 @@ import com.trunk.bean.User;
 import com.trunk.service.UserService;
 import com.trunk.util.Pages;
 import com.trunk.util.ResultUtil;
+import com.trunk.util.xutil.Validators;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -94,14 +95,25 @@ public class UserController {
         int i = 0;
         try{
             out = response.getWriter();
-            i = userService.addRole(roleName,roleKey,status,description);
-            map.put("code",i);
-            if(i == 1){
-                map.put("msg","角色名已存在,请更改角色名");
-            }else if(i == 2){
-                map.put("msg","roleKey已存在,请更改roleKey");
-            }else {
-                map.put("msg","角色添加成功");
+            if(Validators.isBlank(roleName)){
+                map.put("code",3);
+                map.put("msg","请填写角色名称");
+            }else if(Validators.isBlank(roleKey)){
+                map.put("code",4);
+                map.put("msg","请填写roleKey");
+            }else if(Validators.isBlank(description)){
+                map.put("code",5);
+                map.put("msg","请填写描述");
+            }else{
+                i = userService.addRole(roleName,roleKey,status,description);
+                map.put("code",i);
+                if(i == 1){
+                    map.put("msg","角色名已存在,请更改角色名");
+                }else if(i == 2){
+                    map.put("msg","roleKey已存在,请更改roleKey");
+                }else {
+                    map.put("msg","角色添加成功");
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -109,7 +121,6 @@ public class UserController {
             map.put("code",-1);
             map.put("msg","角色添加出错,请联系管理员");
         }
-        System.out.print(map);
         out.print("<script type=\"text/javascript\">parent.callback('"+ResultUtil.toJSON(map)+"')</script>");
     }
 

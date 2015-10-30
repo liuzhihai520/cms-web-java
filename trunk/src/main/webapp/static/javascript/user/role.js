@@ -81,22 +81,13 @@ function callback(data){
                 window.location.href = "user/roleList";
             }
         });
-    }else if(obj.code == 1){
+    }else{
         top.bootbox.alert({
             size: 'small',
             title:'提示:',
             message:obj.msg,
             callback:function(){
                 $("#roleName").focus();
-            }
-        });
-    }else{
-        top.bootbox.alert({
-            size: 'small',
-            title:'提示:',
-            message: obj.msg,
-            callback:function(){
-                $("#roleKey").focus();
             }
         });
     }
