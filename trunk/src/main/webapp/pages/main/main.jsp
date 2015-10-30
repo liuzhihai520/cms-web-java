@@ -174,7 +174,7 @@
                         <ul class="submenu">
                             <c:forEach items="${obj.children}" var="child">
                                 <li class="" onclick="setActive(this)">
-                                    <a href="javascript:;" onclick="url(${child.id},'${child.url}', '${child.name}')">
+                                    <a href="javascript:;" onclick="url(${child.id}, '${child.url}', '${child.name}')">
                                         <i class="menu-icon fa fa-caret-right"></i>
                                         ${child.name}
                                     </a>
@@ -292,7 +292,7 @@
                     </div>
                 </div>
 
-                <!-- 导航显示 -->
+                <!-- 导航显示
                 <div class="page-header">
                     <h1>
                         Dashboard
@@ -301,8 +301,8 @@
                             overview &amp; stats
                         </small>
                     </h1>
-                </div>
-                <!--
+                </div> -->
+
                 <div class="tabbable" id="main_tab">
                     <ul class="nav nav-tabs">
                         <li style="display:none;" class="active">
@@ -338,11 +338,6 @@
                         </div>
                     </div>
                 </div>
-                -->
-                <iframe id="iframe_id" width="100%" class="auto-height" scrolling="no" frameborder="0" name="iframe_id" src=""></iframe>
-                <script>
-                    $('iframe.auto-height').iframeAutoHeight({minHeight: 580});
-                </script>
             </div>
         </div>
     </div>
@@ -408,6 +403,6 @@
 
 <!-- 与此页相关的内联脚本 -->
 <script src="static/javascript/main/main.js"></script>
-<!--<script src="static/javascript/common/Tab.js"></script>-->
+<script src="static/javascript/common/Tab.js"></script>
 </body>
 </html>
