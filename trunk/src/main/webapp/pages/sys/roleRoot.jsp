@@ -24,7 +24,7 @@
     <script type="text/javascript">
         var treeList = ${treeList};
     </script>
-    <script type="text/javascript" src="static/javascript/user/root.js"></script>
+    <script type="text/javascript" src="static/javascript/sys/root.js"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
 <div class="row">
@@ -46,7 +46,7 @@
         </button>
 
         &nbsp; &nbsp; &nbsp;
-        <button class="btn" type="reset">
+        <button class="btn" type="button">
             <i class="ace-icon fa fa-undo bigger-110"></i>
             Cancel
         </button>

@@ -23,7 +23,5 @@ $(function(){
     var zNodes = treeList;
 
     //初始化树
-    $(document).ready(function(){
-        $.fn.zTree.init($("#tree"), setting, zNodes);
-    });
+    $.fn.zTree.init($("#tree"), setting, zNodes);
 });
