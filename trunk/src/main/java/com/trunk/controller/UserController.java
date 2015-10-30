@@ -84,12 +84,33 @@ public class UserController {
 
     //新增角色
     @RequestMapping("/addRole")
-    public String addRole(@RequestParam(required = true, defaultValue = "") String roleName,
+    public void addRole(HttpServletResponse response,
+                          @RequestParam(required = true, defaultValue = "") String roleName,
                           @RequestParam(required = true, defaultValue = "") String roleKey,
                           @RequestParam(required = true, defaultValue = "1") int status,
                           @RequestParam(required = true, defaultValue = "") String description){
-        userService.addRole(roleName,roleKey,status,description);
-        return "user/role";
+        Map<String,Object> map = ResultUtil.result();
+        PrintWriter out = null;
+        int i = 0;
+        try{
+            out = response.getWriter();
+            i = userService.addRole(roleName,roleKey,status,description);
+            map.put("code",i);
+            if(i == 1){
+                map.put("msg","角色名已存在,请更改角色名");
+            }else if(i == 2){
+                map.put("msg","roleKey已存在,请更改roleKey");
+            }else {
+                map.put("msg","角色添加成功");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error(e);
+            map.put("code",-1);
+            map.put("msg","角色添加出错,请联系管理员");
+        }
+        System.out.print(map);
+        out.print("<script type=\"text/javascript\">parent.callback('"+ResultUtil.toJSON(map)+"')</script>");
     }
 
     //删除角色

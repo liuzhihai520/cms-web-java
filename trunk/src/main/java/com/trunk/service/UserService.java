@@ -78,9 +78,25 @@ public class UserService extends BaseService{
     }
 
     //增加用户角色
-    public void addRole(String name,String roleKey,int status,String description){
-        String sql = "insert into t_sys_role (name,roleKey,status,description) values (?,?,?,?)";
-        jdbcTemplate.update(sql,new Object[]{name,roleKey,status,description});
+    public int addRole(String name,String roleKey,int status,String description){
+        int i = 0;
+        //验证名称
+        String str = "select count(0) as getCount from t_sys_role where name = ?";
+        int hasName = jdbcTemplate.queryForObject(str,new Object[]{name},Integer.class);
+        if(hasName > 0){
+            i = 1;
+        }else{
+            //验证roleKey
+            String str1 = "select count(0) as getCount from t_sys_role where roleKey = ?";
+            int hasKey = jdbcTemplate.queryForObject(str1,new Object[]{roleKey},Integer.class);
+            if(hasKey > 0){
+                i = 2;
+            }else{
+                String sql = "insert into t_sys_role (name,roleKey,status,description) values (?,?,?,?)";
+                jdbcTemplate.update(sql,new Object[]{name,roleKey,status,description});
+            }
+        }
+        return i;
     }
 
     //删除角色
