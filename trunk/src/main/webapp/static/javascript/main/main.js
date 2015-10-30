@@ -6,7 +6,7 @@
  */
 var tab;
 $(function($) {
-    tab = new Tab();
+    //tab = new Tab();
     $('iframe_id').iframeAutoHeight({debug: true});
 });
 

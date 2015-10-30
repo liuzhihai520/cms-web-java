@@ -21,29 +21,10 @@
     <script src="static/ace/js/jquery1x.js"></script>
     <script src="static/js/zTree/js/jquery.ztree.core-3.5.min.js"></script>
     <script src="static/js/zTree/js/jquery.ztree.excheck-3.5.min.js"></script>
-    <script>
-        var setting = {
-            check: {
-                enable: true
-            },
-            data: {
-                simpleData: {
-                    enable: true,
-                    idKey: "id",
-                    pIdKey: "parentId",
-                    rootPId: null
-                }
-            }
-        };
-
-        //获取JSON数据集
-        var zNodes = ${treeList};
-
-        //初始化树
-        $(document).ready(function(){
-            $.fn.zTree.init($("#tree"), setting, zNodes);
-        });
+    <script type="text/javascript">
+        var treeList = ${treeList};
     </script>
+    <script type="text/javascript" src="static/javascript/user/root.js"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
 <div class="row">

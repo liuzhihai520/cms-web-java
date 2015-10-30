@@ -5,7 +5,6 @@
  * @date 2015/10/28
  */
 $(function(){
-    //zTree设置
     var setting = {
         check: {
             enable: true
@@ -14,7 +13,7 @@ $(function(){
             simpleData: {
                 enable: true,
                 idKey: "id",
-                pIdKey: "parent_id",
+                pIdKey: "parentId",
                 rootPId: null
             }
         }
@@ -24,5 +23,7 @@ $(function(){
     var zNodes = treeList;
 
     //初始化树
-    $.fn.zTree.init($("#zTree"), setting, zNodes);
+    $(document).ready(function(){
+        $.fn.zTree.init($("#tree"), setting, zNodes);
+    });
 });
