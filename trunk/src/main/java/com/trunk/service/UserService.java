@@ -1,5 +1,6 @@
 package com.trunk.service;
 
+import com.trunk.bean.Role;
 import com.trunk.bean.User;
 import com.trunk.util.Common;
 import java.sql.Connection;
@@ -40,7 +41,7 @@ public class UserService extends BaseService{
         //集合
         String sql = "select * from t_sys_role limit ?,?";
         List<Map<String,Object>> list = jdbcTemplate.queryForList(sql,new Object[]{index,limit});
-        Pages<Map<String, Object>> page = new Pages<>(count, pageNumber,10);
+        Pages<Map<String, Object>> page = new Pages<>(count, pageNumber,limit);
         page.setList(list);
         return page;
     }
@@ -91,5 +92,17 @@ public class UserService extends BaseService{
         //删除角色对应菜单
         String resSQL = "delete from t_sys_role_res where roleId = ?";
         jdbcTemplate.update(resSQL,new Object[]{roleId});
+    }
+
+    //查询角色信息
+    public Map<String,Object> role(long roleId){
+        String sql = "select * from t_sys_role where id = ?";
+        return jdbcTemplate.queryForMap(sql,new Object[]{roleId});
+    }
+
+    //修改角色信息
+    public void updateRole(Role role){
+        String sql = "update t_sys_role set name = ?,roleKey = ?,status = ?,description = ? where id = ?";
+        jdbcTemplate.update(sql,new Object[]{role.getName(),role.getRoleKey(),role.getStatus(),role.getDescription(),role.getId()});
     }
 }

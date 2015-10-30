@@ -81,7 +81,7 @@
                                     <td>${obj.description}</td>
                                     <td>
                                         <div class="hidden-sm hidden-xs action-buttons">
-                                            <a class="green" href="#">
+                                            <a class="green" href="user/role?roleId=${obj.id}">
                                                 <i class="ace-icon fa fa-pencil bigger-130"></i>
                                             </a>
 

@@ -1,8 +1,10 @@
 package com.trunk.controller;
 
+import com.trunk.bean.Role;
 import com.trunk.bean.User;
 import com.trunk.service.UserService;
 import com.trunk.util.Pages;
+import com.trunk.util.ResultUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,7 +47,7 @@ public class UserController {
     public String roleList(HttpServletRequest request,
                              @RequestParam(required = false, defaultValue = "1") int pageNumber){
         int index = (pageNumber - 1) * 10;
-        Pages<Map<String,Object>> page = userService.roleList(index,pageNumber,10);
+        Pages<Map<String,Object>> page = userService.roleList(index,10,pageNumber);
         request.setAttribute("list",page.getList());
         request.setAttribute("page", page);
         request.setAttribute("hasPreviousPage", page.hasPreviousPage());
@@ -58,7 +60,7 @@ public class UserController {
     @RequestMapping("/initUser")
     public String initAddUser(HttpServletRequest request){
         int index = (1 - 1) * 10;
-        Pages<Map<String,Object>> page = userService.roleList(index,1,100);
+        Pages<Map<String,Object>> page = userService.roleList(index,100,1);
         List<Map<String,Object>> roleList = page.getList();
         request.setAttribute("roleList",roleList);
         return "user/user";
@@ -95,6 +97,32 @@ public class UserController {
     public String deleteRole(long role_id){
         userService.deleteRole(role_id);
         return "redirect:/user/roleList";
+    }
+
+    //角色信息
+    @RequestMapping("/role")
+    public String role(HttpServletRequest request,long roleId){
+        Map<String,Object> role = userService.role(roleId);
+        request.setAttribute("role",role);
+        return "user/updateRole";
+    }
+
+    //修改角色信息
+    @RequestMapping("/updateRole")
+    public void updateRole(HttpServletResponse response,Role role){
+        Map<String,Object> map = ResultUtil.result();
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            userService.updateRole(role);
+            map.put("msg","角色更新成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error(e);
+            map.put("code",-1);
+            map.put("msg","角色更新失败");
+        }
+        out.print("<script type=\"text/javascript\">parent.callback('"+ResultUtil.toJSON(map)+"')</script>");
     }
 
     //测试模块
