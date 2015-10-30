@@ -2,6 +2,7 @@ package com.trunk.controller;
 
 import com.trunk.bean.User;
 import com.trunk.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,9 @@ import java.util.Map;
 @Controller
 public class UserController {
 
+    //日志
+    private Logger logger = Logger.getLogger(UserController.class);
+
     @Autowired
     private UserService userService;
 
@@ -33,6 +37,14 @@ public class UserController {
         List<Map<String,Object>> userList = userService.userList();
         request.setAttribute("userList",userList);
         return "user/userList";
+    }
+
+    //角色管理列表
+    @RequestMapping("/roleList")
+    public String roleList(HttpServletRequest request){
+        List<Map<String,Object>> list = userService.roleList();
+        request.setAttribute("list",list);
+        return "user/roleList";
     }
 
     //初始化用户界面
@@ -45,7 +57,7 @@ public class UserController {
 
     //新增用户
     @RequestMapping("/addUser")
-    public void addUser(HttpServletRequest request,HttpServletResponse response,User user){
+    public void addUser(HttpServletResponse response,User user){
         PrintWriter out = null;
         int status = 0;
         try {
@@ -53,12 +65,11 @@ public class UserController {
             userService.addUser(user);
         }catch (Exception e){
             e.printStackTrace();
+            logger.error(e);
             status = -1;
         }
         out.print("<script type=\"text/javascript\">parent.callback('"+status+"')</script>");
     }
-
-
 
     //新增角色
     @RequestMapping("/addRole")
@@ -70,6 +81,7 @@ public class UserController {
         return "user/role";
     }
 
+    //测试模块
     @RequestMapping("/test")
     public String test(){
         return "user/test";

@@ -292,7 +292,7 @@
                     </div>
                 </div>
 
-                <!-- 导航显示
+                <!-- 导航显示 -->
                 <div class="page-header">
                     <h1>
                         Dashboard
@@ -301,8 +301,8 @@
                             overview &amp; stats
                         </small>
                     </h1>
-                </div> -->
-
+                </div>
+                <!--
                 <div class="tabbable" id="main_tab">
                     <ul class="nav nav-tabs">
                         <li style="display:none;" class="active">
@@ -338,6 +338,8 @@
                         </div>
                     </div>
                 </div>
+                -->
+                <iframe id="iframe_id" width="100%" class="auto-height" scrolling="no" frameborder="0" name="iframe_id" src=""></iframe>
                 <script>
                     $('iframe.auto-height').iframeAutoHeight({minHeight: 580});
                 </script>
@@ -406,6 +408,6 @@
 
 <!-- 与此页相关的内联脚本 -->
 <script src="static/javascript/main/main.js"></script>
-<script src="static/javascript/common/Tab.js"></script>
+<!--<script src="static/javascript/common/Tab.js"></script>-->
 </body>
 </html>

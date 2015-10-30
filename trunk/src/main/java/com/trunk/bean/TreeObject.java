@@ -22,6 +22,9 @@ public class TreeObject {
     private String description;
     private String icon;
     private Integer ishide;
+    //新增字段checked,表示是否选中
+    private boolean checked = false;
+    private boolean open=true;
     private List<TreeObject> children = new ArrayList<TreeObject>();
     public long getId() {
         return id;
@@ -95,5 +98,19 @@ public class TreeObject {
     }
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+    public Boolean getChecked() {
+        return checked;
+    }
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
     }
 }

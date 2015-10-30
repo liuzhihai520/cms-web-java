@@ -5,7 +5,10 @@ import com.trunk.bean.Menu;
 import com.trunk.bean.TreeObject;
 import com.trunk.service.SysService;
 import com.trunk.util.Common;
+import com.trunk.util.Pages;
+import com.trunk.util.ResultUtil;
 import com.trunk.util.TreeUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +31,9 @@ import java.util.Map;
 @Controller
 public class SysController {
 
+    //日志
+    private Logger logger = Logger.getLogger(UserController.class);
+
     @Autowired
     private SysService sysService;
 
@@ -48,8 +54,30 @@ public class SysController {
         return "main/main";
     }
 
+    //查询菜单列表
+    @RequestMapping("/menuList")
+    @ResponseBody
+    public String menuList(@RequestParam(required = true, defaultValue = "0") long menuId){
+        List<Map<String,Object>> list = sysService.menuList(menuId);
+        return JSON.toJSONString(list);
+    }
+
+    //菜单管理列表
+    @RequestMapping("/menusList")
+    public String menuList(HttpServletRequest request,
+                             @RequestParam(required = false, defaultValue = "1") int pageNumber){
+        int index = (pageNumber - 1) * 10;
+        Pages<Map<String,Object>> page = sysService.menuList(index,pageNumber);
+        request.setAttribute("list",page.getList());
+        request.setAttribute("page", page);
+        request.setAttribute("hasPreviousPage", page.hasPreviousPage());
+        request.setAttribute("hasNextPage", page.hasNextPage());
+        request.setAttribute("navigatePageNumbers", page.getNavigatePageNumbers());
+        return "sys/menuList";
+    }
+
     //添加菜单页
-    @RequestMapping("/toAddMenu")
+    @RequestMapping("/initMenu")
     public String toAddMenu(HttpServletRequest request){
         List<Map<String,Object>> mps = sysService.allMenuList();
         List<TreeObject> list = new ArrayList<TreeObject>();
@@ -64,18 +92,61 @@ public class SysController {
         return "sys/addMenu";
     }
 
-    //查询菜单列表
-    @RequestMapping("/menuList")
-    @ResponseBody
-    public String menuList(@RequestParam(required = true, defaultValue = "0") long menuId){
-        List<Map<String,Object>> list = sysService.menuList(menuId);
-        return JSON.toJSONString(list);
-    }
-
     //新增菜单
     @RequestMapping("/addMenu")
     public String addMenu(Menu menu){
         sysService.addMenu(menu);
         return "sys/addMenu";
+    }
+
+    //查询角色权限
+    @RequestMapping("/roleRootList")
+    public String roleRootList(HttpServletRequest request,long role_id){
+        List<TreeObject> list = sysService.roleRootList(role_id);
+        System.out.println(JSON.toJSONString(list));
+        request.setAttribute("roleId",role_id);
+        request.setAttribute("treeList",ResultUtil.toJSON(list));
+        return "sys/roleRoot";
+    }
+
+    //角色菜单授权
+    @RequestMapping("/roleRoot")
+    @ResponseBody
+    public String roleRoot(long role_id,String treeList){
+        Map<String,Object> map = ResultUtil.result();
+        try{
+            if(treeList != null && !treeList.equals("")){
+                treeList = treeList.substring(0,treeList.length()-1);
+                sysService.roleRoot(treeList, role_id);
+                map.put("msg","权限分配成功");
+            }else{
+                map.put("code",1);
+                map.put("msg","请为角色分配权限");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error(e);
+            map.put("code",-1);
+            map.put("msg","权限分配失败,联系管理员");
+        }
+        return JSON.toJSONString(map);
+    }
+
+    //测试菜单
+    @RequestMapping("/treeView")
+    @ResponseBody
+    public String TreeView(HttpServletRequest request){
+        //菜单列表
+        List<Map<String,Object>> mps = sysService.allMenuList();
+        List<TreeObject> list = new ArrayList<TreeObject>();
+        for(int i=0;i<mps.size();i++){
+            Map<String,Object> map = mps.get(i);
+            TreeObject treeObject = Common.map2Bean(map, TreeObject.class);
+            list.add(treeObject);
+        }
+        TreeUtil treeUtil = new TreeUtil();
+        List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0);
+        request.setAttribute("ns",JSON.toJSONString(ns));
+        return "user/test";
     }
 }
