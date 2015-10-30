@@ -7,6 +7,7 @@ import com.trunk.util.Convert;
 import com.trunk.util.Pages;
 import com.trunk.util.TreeUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,9 +68,9 @@ public class SysService extends BaseService{
         String sql = "select * from t_sys_menu where type != 3 order by level desc";
         List<Map<String,Object>> menuList = jdbcTemplate.queryForList(sql);
         //查询角色权限菜单
-        String roleSQL = "SELECT c.* FROM t_sys_user_role a " +
-                         "LEFT JOIN t_sys_res_user b ON a.userId=b.userId " +
-                         "LEFT JOIN t_sys_menu c ON b.resId=c.id where a.roleId = ?";
+        String roleSQL = "SELECT c.* FROM t_sys_role a " +
+                          "JOIN t_sys_role_res b ON a.id=b.roleId " +
+                          "JOIN t_sys_menu c ON b.resId=c.id where a.id = ?";
         List<Map<String,Object>> roleMenuList = jdbcTemplate.queryForList(roleSQL,new Object[]{role});
         for(int i=0;i<menuList.size();i++){
             Map<String,Object> mMap = menuList.get(i);
@@ -85,8 +86,23 @@ public class SysService extends BaseService{
             TreeObject treeObject = Common.map2Bean(mMap, TreeObject.class);
             list.add(treeObject);
         }
+        System.out.println(list);
         TreeUtil treeUtil = new TreeUtil();
         List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0, "");
         return ns;
+    }
+
+    //角色授权
+    @Transactional
+    public void roleRoot(String treeList,long roleId){
+        //删除当前角色所有菜单
+        String sql = "delete from t_sys_role_res where roleId = ?";
+        jdbcTemplate.update(sql,new Object[]{roleId});
+        //新增角色菜单
+        String idArr[] = treeList.split(",");
+        for(int i=0;i<idArr.length;i++){
+            String insert = "insert into t_sys_role_res (roleId,resId) values (?,?)";
+            jdbcTemplate.update(insert,new Object[]{roleId,idArr[i]});
+        }
     }
 }

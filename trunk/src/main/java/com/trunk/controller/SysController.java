@@ -6,7 +6,9 @@ import com.trunk.bean.TreeObject;
 import com.trunk.service.SysService;
 import com.trunk.util.Common;
 import com.trunk.util.Pages;
+import com.trunk.util.ResultUtil;
 import com.trunk.util.TreeUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,9 @@ import java.util.Map;
 @RequestMapping("/sys/*")
 @Controller
 public class SysController {
+
+    //日志
+    private Logger logger = Logger.getLogger(UserController.class);
 
     @Autowired
     private SysService sysService;
@@ -60,7 +65,7 @@ public class SysController {
     //菜单管理列表
     @RequestMapping("/menusList")
     public String menuList(HttpServletRequest request,
-                           @RequestParam(required = false, defaultValue = "1") int pageNumber){
+                             @RequestParam(required = false, defaultValue = "1") int pageNumber){
         int index = (pageNumber - 1) * 10;
         Pages<Map<String,Object>> page = sysService.menuList(index,pageNumber);
         request.setAttribute("list",page.getList());
@@ -98,8 +103,33 @@ public class SysController {
     @RequestMapping("/roleRootList")
     public String roleRootList(HttpServletRequest request,long role_id){
         List<TreeObject> list = sysService.roleRootList(role_id);
+        System.out.println(JSON.toJSONString(list));
+        request.setAttribute("roleId",role_id);
         request.setAttribute("treeList",JSON.toJSONString(list));
         return "sys/roleRoot";
+    }
+
+    //角色菜单授权
+    @RequestMapping("/roleRoot")
+    @ResponseBody
+    public String roleRoot(long role_id,String treeList){
+        Map<String,Object> map = ResultUtil.result();
+        try{
+            if(treeList != null && !treeList.equals("")){
+                treeList = treeList.substring(0,treeList.length()-1);
+                sysService.roleRoot(treeList, role_id);
+                map.put("msg","权限分配成功");
+            }else{
+                map.put("code",1);
+                map.put("msg","请为角色分配权限");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error(e);
+            map.put("code",-1);
+            map.put("msg","权限分配失败,联系管理员");
+        }
+        return JSON.toJSONString(map);
     }
 
     //测试菜单

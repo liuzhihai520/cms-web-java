@@ -2,6 +2,7 @@ package com.trunk.controller;
 
 import com.trunk.bean.User;
 import com.trunk.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +24,9 @@ import java.util.Map;
 @RequestMapping("/user/*")
 @Controller
 public class UserController {
+
+    //日志
+    private Logger logger = Logger.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -53,7 +57,7 @@ public class UserController {
 
     //新增用户
     @RequestMapping("/addUser")
-    public void addUser(HttpServletRequest request,HttpServletResponse response,User user){
+    public void addUser(HttpServletResponse response,User user){
         PrintWriter out = null;
         int status = 0;
         try {
@@ -61,6 +65,7 @@ public class UserController {
             userService.addUser(user);
         }catch (Exception e){
             e.printStackTrace();
+            logger.error(e);
             status = -1;
         }
         out.print("<script type=\"text/javascript\">parent.callback('"+status+"')</script>");
