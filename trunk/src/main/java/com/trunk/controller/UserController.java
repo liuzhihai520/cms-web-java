@@ -81,6 +81,13 @@ public class UserController {
         return "user/role";
     }
 
+    //删除角色
+    @RequestMapping("/deleteRole")
+    public String deleteRole(long role_id){
+        userService.deleteRole(role_id);
+        return "redirect:/user/roleList";
+    }
+
     //测试模块
     @RequestMapping("/test")
     public String test(){

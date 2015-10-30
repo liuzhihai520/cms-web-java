@@ -73,4 +73,15 @@ public class UserService extends BaseService{
         String sql = "insert into t_sys_role (name,roleKey,status,description) values (?,?,?,?)";
         jdbcTemplate.update(sql,new Object[]{name,roleKey,status,description});
     }
+
+    //删除角色
+    @Transactional
+    public void deleteRole(long roleId){
+        //删除角色
+        String sql = "delete from t_sys_role where id = ?";
+        jdbcTemplate.update(sql,new Object[]{roleId});
+        //删除角色对应菜单
+        String resSQL = "delete from t_sys_role_res where roleId = ?";
+        jdbcTemplate.update(resSQL,new Object[]{roleId});
+    }
 }
