@@ -11,9 +11,9 @@ $(function($) {
 });
 
 //设置路劲
-function url(url,title){
-    tab.addItem({title:title, url: url});
-    //$('#iframe_id').attr("src",url);
+function url(url){
+    //tab.addItem({title:title, url: url});
+    $('#iframe_id').attr("src",url);
 }
 
 //设置class元素
