@@ -117,8 +117,24 @@ public class UserService extends BaseService{
     }
 
     //修改角色信息
-    public void updateRole(Role role){
-        String sql = "update t_sys_role set name = ?,roleKey = ?,status = ?,description = ? where id = ?";
-        jdbcTemplate.update(sql,new Object[]{role.getName(),role.getRoleKey(),role.getStatus(),role.getDescription(),role.getId()});
+    public int updateRole(Role role){
+        int i = 0;
+        //验证名称
+        String str = "select count(0) as getCount from t_sys_role where name = ? and id != ?";
+        int hasName = jdbcTemplate.queryForObject(str,new Object[]{role.getName(),role.getId()},Integer.class);
+        if(hasName > 0){
+            i = 1;
+        }else{
+            //验证roleKey
+            String str1 = "select count(0) as getCount from t_sys_role where roleKey = ? and id != ?";
+            int hasKey = jdbcTemplate.queryForObject(str1,new Object[]{role.getRoleKey(),role.getId()},Integer.class);
+            if(hasKey > 0){
+                i = 2;
+            }else{
+                String sql = "update t_sys_role set name = ?,roleKey = ?,status = ?,description = ? where id = ?";
+                jdbcTemplate.update(sql,new Object[]{role.getName(),role.getRoleKey(),role.getStatus(),role.getDescription(),role.getId()});
+            }
+        }
+        return i;
     }
 }

@@ -64,8 +64,7 @@ $(function(){
     });
 
     $("#re").click(function(){
-        $("#form")[0].reset();
-        $("#form").data('bootstrapValidator').resetForm();
+        $("#form").data('bootstrapValidator').resetForm(true);
     });
 });
 
@@ -87,6 +86,7 @@ function callback(data){
             title:'提示:',
             message:obj.msg,
             callback:function(){
+                alert("vvvvvv");
                 $("#roleName").focus();
             }
         });

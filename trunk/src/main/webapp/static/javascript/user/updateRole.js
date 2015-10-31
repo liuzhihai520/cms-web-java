@@ -5,6 +5,57 @@
  * @date 2015/10/30
  */
 $(function(){
+
+    $("#form").bootstrapValidator({
+        message: '这个值无效',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            name:{
+                message: '角色名无效',
+                validators: {
+                    notEmpty: {
+                        message: '角色名不能为空'
+                    },
+                    stringLength: {
+                        min: 2,
+                        max: 6,
+                        message: '角色名长度为2-6'
+                    }
+                }
+            },
+            roleKey:{
+                message: 'roleKey无效',
+                validators: {
+                    notEmpty: {
+                        message: 'roleKey不能为空'
+                    },
+                    stringLength: {
+                        min: 4,
+                        max: 12,
+                        message: 'roleKey长度为2-6'
+                    }
+                }
+            },
+            description:{
+                message: '描述无效',
+                validators: {
+                    notEmpty: {
+                        message: '描述不能为空'
+                    },
+                    stringLength: {
+                        min: 2,
+                        max: 12,
+                        message: '描述长度为2-12'
+                    }
+                }
+            }
+        }
+    });
+
     $('#sub').on('click', function() {
         $("#form").submit();
     });

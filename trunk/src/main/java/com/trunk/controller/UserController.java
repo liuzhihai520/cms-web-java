@@ -144,10 +144,29 @@ public class UserController {
     public void updateRole(HttpServletResponse response,Role role){
         Map<String,Object> map = ResultUtil.result();
         PrintWriter out = null;
+        int i = 0;
         try {
             out = response.getWriter();
-            userService.updateRole(role);
-            map.put("msg","角色更新成功");
+            if(Validators.isBlank(role.getName())){
+                map.put("code",3);
+                map.put("msg","请填写角色名称");
+            }else if(Validators.isBlank(role.getRoleKey())){
+                map.put("code",4);
+                map.put("msg","请填写roleKey");
+            }else if(Validators.isBlank(role.getDescription())){
+                map.put("code",5);
+                map.put("msg","请填写描述");
+            }else{
+                i = userService.updateRole(role);
+                map.put("code",i);
+                if(i == 1){
+                    map.put("msg","角色名已存在,请更改角色名");
+                }else if(i == 2){
+                    map.put("msg","roleKey已存在,请更改roleKey");
+                }else {
+                    map.put("msg","角色更新成功");
+                }
+            }
         }catch (Exception e){
             e.printStackTrace();
             logger.error(e);
@@ -155,11 +174,5 @@ public class UserController {
             map.put("msg","角色更新失败");
         }
         out.print("<script type=\"text/javascript\">parent.callback('"+ResultUtil.toJSON(map)+"')</script>");
-    }
-
-    //测试模块
-    @RequestMapping("/test")
-    public String test(){
-        return "user/test";
     }
 }
