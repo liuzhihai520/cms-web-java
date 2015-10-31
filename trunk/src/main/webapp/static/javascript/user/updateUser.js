@@ -1,12 +1,11 @@
 /**
- * 方法描述:添加用户
+ * 方法描述:修改用户
  * @author 小刘
  * @date 2015/10/26
  * @version v1.0
  */
-var validate;
 $(function(){
-    validate = $("#form").bootstrapValidator({
+    $("#form").bootstrapValidator({
         message: '这个值无效',
         feedbackIcons: {
             valid: 'glyphicon glyphicon-ok',
@@ -29,19 +28,6 @@ $(function(){
                     }
                 }
             },
-            accountname:{
-                message: '账户无效',
-                validators: {
-                    notEmpty: {
-                        message: '账户不能为空'
-                    },
-                    stringLength: {
-                        min: 4,
-                        max: 12,
-                        message: '账户长度为4-12'
-                    }
-                }
-            },
             description:{
                 message: '描述无效',
                 validators: {
@@ -58,8 +44,8 @@ $(function(){
         }
     });
 
-    $("#reset").click(function(){
-        validate.data('bootstrapValidator').resetForm(true);
+    $("#cancel").click(function(){
+        javascript:history.back(-1);
     });
 });
 
@@ -70,7 +56,7 @@ function callback(data){
         top.bootbox.alert({
             size: 'small',
             title:'提示:',
-            message: "添加用户已成功",
+            message: obj.msg,
             callback: function(){
                 window.location.href = "user/userList";
             }

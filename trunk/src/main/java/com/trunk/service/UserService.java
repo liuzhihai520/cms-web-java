@@ -46,35 +46,79 @@ public class UserService extends BaseService{
         return page;
     }
 
+    //用户信息
+    public Map<String,Object> user(long id){
+        String sql = "SELECT a.*,b.roleId FROM t_sys_user a " +
+                     "LEFT JOIN t_sys_user_role b ON a.id=b.userId " +
+                     "LEFT JOIN t_sys_role c ON b.roleId=c.id where a.id = ?";
+        return jdbcTemplate.queryForMap(sql,new Object[]{id});
+    }
+
+    //修改用户
+    @Transactional
+    public int updateUser(User user){
+        int i = 0;
+        //验证用户名
+        String str = "select count(0) as getCount from t_sys_user where username = ? and id != ?";
+        int hasName = jdbcTemplate.queryForObject(str,new Object[]{user.getUsername(),user.getId()},Integer.class);
+        if (hasName > 0){
+            i = 1;
+        }else{
+            //修改用户
+            String sql = "update t_sys_user set username=?,status=?,description=? where id = ?";
+            jdbcTemplate.update(sql,new Object[]{user.getUsername(),user.getStatus(),user.getDescription(),user.getId()});
+            //修改角色
+            String sql1 = "update t_sys_user_role set roleId = ? where userId=? and roleId=?";
+            jdbcTemplate.update(sql1,new Object[]{user.getRole(),user.getId(),user.getRole()});
+        }
+        return i;
+    }
+
     //新增用户
     @Transactional
-    public void addUser(User user){
-        //随机生成4位字符串
-        String salt = Common.getRandomString(4);
-        //密码加盐
-        String pas = Common.MD5(user.getPassword())+salt;
-        //重新生成MD5
-        String password = Common.MD5(pas);
-        //插入用户表
-        String sql = "insert into t_sys_user(username,accountname,password,salt,status,description)values(?,?,?,?,?,?)";
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(
-                new PreparedStatementCreator() {
-                    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                        PreparedStatement ps = connection.prepareStatement(sql, new String[] {"id"});
-                        ps.setString(1, user.getUsername());
-                        ps.setString(2, user.getAccountname());
-                        ps.setString(3, password);
-                        ps.setString(4, salt);
-                        ps.setInt(5, user.getStatus());
-                        ps.setString(6, user.getDescription());
-                        return ps;
-                    }
-                },
-        keyHolder);
-        //插入用户角色表
-        String sql1 = "insert into t_sys_user_role(userId,roleId) values(?,?)";
-        jdbcTemplate.update(sql1,new Object[]{keyHolder.getKey().longValue(),user.getRole()});
+    public int addUser(User user){
+        int i = 0;
+        //验证用户名
+        String str = "select count(0) as getCount from t_sys_user where username = ?";
+        int hasName = jdbcTemplate.queryForObject(str,new Object[]{user.getUsername()},Integer.class);
+        if(hasName > 0){
+            i = 1;
+        }else{
+            //验证账号
+            String str1 = "select count(0) as getCount from t_sys_user where accountname = ?";
+            int hasAccount = jdbcTemplate.queryForObject(str1,new Object[]{user.getAccountname()},Integer.class);
+            if(hasAccount > 0){
+                i = 2;
+            }else{
+                //随机生成4位字符串
+                String salt = Common.getRandomString(4);
+                //密码加盐
+                String pas = Common.MD5(user.getPassword())+salt;
+                //重新生成MD5
+                String password = Common.MD5(pas);
+                //插入用户表
+                String sql = "insert into t_sys_user(username,accountname,password,salt,status,description)values(?,?,?,?,?,?)";
+                KeyHolder keyHolder = new GeneratedKeyHolder();
+                jdbcTemplate.update(
+                        new PreparedStatementCreator() {
+                            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                                PreparedStatement ps = connection.prepareStatement(sql, new String[] {"id"});
+                                ps.setString(1, user.getUsername());
+                                ps.setString(2, user.getAccountname());
+                                ps.setString(3, password);
+                                ps.setString(4, salt);
+                                ps.setInt(5, user.getStatus());
+                                ps.setString(6, user.getDescription());
+                                return ps;
+                            }
+                        },
+                        keyHolder);
+                //插入用户角色表
+                String sql1 = "insert into t_sys_user_role(userId,roleId) values(?,?)";
+                jdbcTemplate.update(sql1,new Object[]{keyHolder.getKey().longValue(),user.getRole()});
+            }
+        }
+        return i;
     }
 
     //增加用户角色

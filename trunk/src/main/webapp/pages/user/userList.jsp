@@ -21,6 +21,7 @@
     <script src="static/ace/js/ace/elements.colorpicker.js"></script>
     <script src="static/ace/js/ace/ace.widget-box.js"></script>
     <script src="static/javascript/user/userList.js"></script>
+    <script src="static/javascript/user/updateUser.js"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
 <div class="row">
@@ -87,15 +88,15 @@
                                 <td>${obj.description}</td>
                                 <td>
                                     <div class="hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="#">
+                                        <a class="blue" href="javascript:;">
                                             <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                         </a>
 
-                                        <a class="green" href="#">
+                                        <a class="green" href="user/user?userId=${obj.id}">
                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
-                                            <iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe></a>
+                                        </a>
 
-                                        <a class="red" href="#">
+                                        <a class="red" href="">
                                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                         </a>
                                     </div>
