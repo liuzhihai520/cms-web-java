@@ -77,7 +77,7 @@ function callback(data){
             title:'提示:',
             message: obj.msg,
             callback: function(){
-                window.location.href = "user/roleList";
+                window.location.href = "role/roleList";
             }
         });
     }else{
@@ -86,7 +86,6 @@ function callback(data){
             title:'提示:',
             message:obj.msg,
             callback:function(){
-                alert("vvvvvv");
                 $("#roleName").focus();
             }
         });

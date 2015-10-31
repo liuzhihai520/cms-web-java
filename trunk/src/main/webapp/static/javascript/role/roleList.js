@@ -6,7 +6,7 @@
  */
 $(function(){
     $("#addRole").click(function(){
-        window.location.href = "pages/user/role.jsp"
+        window.location.href = "../../../pages/role/role.jsp"
     });
 });
 
@@ -25,7 +25,7 @@ function deleteRole(roleId){
         },
         callback: function(result) {
             if(result){
-                window.location.href = "user/deleteRole?role_id="+roleId;
+                window.location.href = "role/deleteRole?role_id="+roleId;
             }
         }
     });

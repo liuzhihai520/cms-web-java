@@ -47,7 +47,7 @@
         </button>
 
         &nbsp; &nbsp; &nbsp;
-        <button class="btn" type="button">
+        <button class="btn" type="button" onclick="javascript:history.back(-1);">
             <i class="ace-icon fa fa-undo bigger-110"></i>
             Cancel
         </button>

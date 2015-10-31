@@ -20,7 +20,7 @@
     <script src="static/ace/js/ace/ace.js"></script>
     <script src="static/ace/js/ace/elements.colorpicker.js"></script>
     <script src="static/ace/js/ace/ace.widget-box.js"></script>
-    <script src="static/javascript/user/roleList.js"></script>
+    <script src="static/javascript/role/roleList.js"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
     <div class="row">
@@ -81,7 +81,7 @@
                                     <td>${obj.description}</td>
                                     <td>
                                         <div class="hidden-sm hidden-xs action-buttons">
-                                            <a class="green" href="user/role?roleId=${obj.id}">
+                                            <a class="green" href="role/role?roleId=${obj.id}">
                                                 <i class="ace-icon fa fa-pencil bigger-130"></i>
                                             </a>
 
@@ -106,7 +106,7 @@
                     <c:choose>
                         <c:when test="${hasPreviousPage}">
                             <li>
-                                <a href="sys/roleList?pageNumber=${page.pageNumber-1}" aria-label="Previous">
+                                <a href="role/roleList?pageNumber=${page.pageNumber-1}" aria-label="Previous">
                                     <span aria-hidden="true">← prev</span>
                                 </a>
                             </li>
@@ -126,7 +126,7 @@
                                 <li><a href="javascript:void(0)" class="active">${obj}</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li><a href="sys/roleList?pageNumber=${obj}">${obj}</a></li>
+                                <li><a href="role/roleList?pageNumber=${obj}">${obj}</a></li>
                             </c:otherwise>
                         </c:choose>
                     </c:forEach>
@@ -134,7 +134,7 @@
                     <c:choose>
                         <c:when test="${hasNextPage}">
                             <li>
-                                <a href="user/roleList?pageNumber=${page.pageNumber+1}" aria-label="Next">
+                                <a href="role/roleList?pageNumber=${page.pageNumber+1}" aria-label="Next">
                                     <span aria-hidden="true">next → </span>
                                 </a>
                             </li>
@@ -149,21 +149,6 @@
                     </c:choose>
                 </ul>
             </nav>
-        </div>
-    </div>
-    <div id="responsive" class="modal fade" tabindex="-1" data-width="760">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h3>Responsive</h3>
-        </div>
-        <div class="modal-body">
-            <div class="row-fluid">
-
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="button" data-dismiss="modal" class="btn">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
         </div>
     </div>
 </body>
