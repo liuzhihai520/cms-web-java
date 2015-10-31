@@ -152,6 +152,13 @@ public class UserController {
         out.print("<script type=\"text/javascript\">parent.callback('"+ResultUtil.toJSON(map)+"')</script>");
     }
 
+    //删除用户
+    @RequestMapping("/deleteUser")
+    public String deleteUser(long userId){
+        userService.deleteRole(userId);
+        return "redirect:/user/userList";
+    }
+
     //新增角色
     @RequestMapping("/addRole")
     public void addRole(HttpServletResponse response,

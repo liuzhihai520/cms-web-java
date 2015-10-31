@@ -21,7 +21,6 @@
     <script src="static/ace/js/ace/elements.colorpicker.js"></script>
     <script src="static/ace/js/ace/ace.widget-box.js"></script>
     <script src="static/javascript/user/userList.js"></script>
-    <script src="static/javascript/user/updateUser.js"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
 <div class="row">
@@ -96,7 +95,7 @@
                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                                         </a>
 
-                                        <a class="red" href="">
+                                        <a class="red" href="javascript:;" onclick="deleteUser(${obj.id})">
                                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                         </a>
                                     </div>

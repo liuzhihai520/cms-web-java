@@ -74,6 +74,17 @@ public class UserService extends BaseService{
         return i;
     }
 
+    //删除用户
+    @Transactional
+    public void deleteUser(long userId){
+        //删除用户
+        String sql = "delete from t_sys_user where id = ?";
+        jdbcTemplate.update(sql,new Object[]{userId});
+        //删除用户角色表
+        String str = "delete from t_sys_user_role where userId = ?";
+        jdbcTemplate.update(str,new Object[]{userId});
+    }
+
     //新增用户
     @Transactional
     public int addUser(User user){

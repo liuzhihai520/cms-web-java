@@ -17,3 +17,25 @@ $(function(){
        window.location.href="user/initUser";
     });
 });
+
+//删除用户
+function deleteUser(userId){
+    top.bootbox.confirm({
+        message: "<span class='bigger-110' style='color: red;'>是否删除该用户?删除后不可恢复!!!</span>",
+        buttons: {
+            confirm: {
+                label: "OK",
+                className: "btn-primary btn-sm",
+            },
+            cancel: {
+                label: "Cancel",
+                className: "btn-sm",
+            }
+        },
+        callback: function(result) {
+            if(result){
+                window.location.href = "user/deleteUser?userId="+userId;
+            }
+        }
+    });
+}
