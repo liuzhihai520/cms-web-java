@@ -32,11 +32,11 @@ CREATE TABLE `t_sys_menu` (
   `ishide` int(2) DEFAULT NULL COMMENT '1.显示 2隐藏',
   `description` varchar(50) DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 /*Data for the table `t_sys_menu` */
 
-insert  into `t_sys_menu`(`id`,`name`,`parentId`,`resKey`,`type`,`url`,`level`,`icon`,`ishide`,`description`) values (3,'系统 & 设置',0,'system','1','system',0,'fa-desktop',1,'系统基础设置'),(4,'操作 & 日志',0,'log','1','log',0,'fa-book',1,'操作日志管理'),(17,'用户管理',3,'account','2','user/userList',0,'',1,'用户管理'),(18,'角色管理',3,'role','2','user/roleList',0,'',1,'角色管理'),(19,'菜单管理',3,'menu','2','sys/menusList',0,'',1,'菜单管理');
+insert  into `t_sys_menu`(`id`,`name`,`parentId`,`resKey`,`type`,`url`,`level`,`icon`,`ishide`,`description`) values (3,'系统 & 设置',0,'system','1','system',0,'fa-desktop',1,'系统基础设置'),(4,'操作 & 日志1',0,'log1','1','log1',0,'fa-book',1,'操作日志管理1'),(17,'用户管理',3,'account','2','user/userList',0,'',1,'用户管理'),(18,'角色管理',3,'role','2','role/roleList',0,'',1,'角色管理'),(19,'菜单管理',3,'menu','2','sys/menusList',0,'',1,'菜单管理');
 
 /*Table structure for table `t_sys_res_user` */
 
@@ -65,7 +65,7 @@ CREATE TABLE `t_sys_role` (
 
 /*Data for the table `t_sys_role` */
 
-insert  into `t_sys_role`(`id`,`name`,`roleKey`,`status`,`description`) values (7,'管理员','admin',2,'管理员'),(8,'普通用户','normal',1,'普通用户');
+insert  into `t_sys_role`(`id`,`name`,`roleKey`,`status`,`description`) values (7,'管理员','admin',1,'管理员'),(8,'普通用户','normal',1,'普通用户');
 
 /*Table structure for table `t_sys_role_res` */
 
