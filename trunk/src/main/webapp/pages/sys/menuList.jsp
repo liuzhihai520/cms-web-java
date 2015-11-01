@@ -20,7 +20,7 @@
     <script src="static/ace/js/ace/ace.js"></script>
     <script src="static/ace/js/ace/elements.colorpicker.js"></script>
     <script src="static/ace/js/ace/ace.widget-box.js"></script>
-    <script src="static/javascript/sys/menuList.js"></script>
+    <script src="static/javascript/sys/menuList.js?v=<%=System.currentTimeMillis()%>"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
 <div class="row">
@@ -68,6 +68,7 @@
                             <th><i></i>菜单类型</th>
                             <th><i></i>唯一key</th>
                             <th><i></i>url地址</th>
+                            <th><i></i>图标</th>
                             <th><i></i>隐藏</th>
                             <th><i></i>描述</th>
                             <th><i></i>操作</th>
@@ -78,22 +79,27 @@
                         <c:forEach items="${list}" var="obj">
                             <tr>
                                 <td>${obj.name}</td>
-                                <td>${obj.type}</td>
+                                <td>
+                                    <c:if test="${obj.type == 1}">目录</c:if>
+                                    <c:if test="${obj.type == 2}">菜单</c:if>
+                                    <c:if test="${obj.type == 3}">元素</c:if>
+                                </td>
                                 <td>${obj.resKey}</td>
                                 <td>${obj.url}</td>
+                                <td>${obj.icon}</td>
                                 <td>${obj.ishide}</td>
                                 <td>${obj.description}</td>
                                 <td>
                                     <div class="hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="#">
+                                        <a class="blue" href="javascript:;">
                                             <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                         </a>
 
-                                        <a class="green" href="#">
+                                        <a class="green" href="sys/menu?menuId=${obj.id}">
                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
-                                            <iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe></a>
+                                        </a>
 
-                                        <a class="red" href="#">
+                                        <a class="red" href="javascript:;" onclick="deleteMenu(${obj.id})">
                                             <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                         </a>
                                     </div>

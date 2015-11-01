@@ -101,4 +101,38 @@ public class SysService extends BaseService{
             jdbcTemplate.update(insert,new Object[]{roleId,idArr[i]});
         }
     }
+
+    //查看菜单
+    public Map<String,Object> menu(long menuId){
+        String sql = "select * from t_sys_menu where id = ?";
+        return jdbcTemplate.queryForMap(sql,new Object[]{menuId});
+    }
+
+    //更新菜单
+    public void updateMneu(Menu menu){
+        String sql = "update t_sys_menu set name=?,parentId=?,resKey=?,type=?,url=?,icon=?,ishide=?,description = ? where id = ?";
+        jdbcTemplate.update(sql,new Object[]{menu.getName(),menu.getParentId(),menu.getResKey(),menu.getType(),menu.getUrl(),menu.getIcon(),
+        menu.getIshide(), menu.getDescription(),menu.getId()});
+    }
+
+    //删除菜单
+    @Transactional
+    public void deleteMenu(long menuId){
+        //查询子菜单
+        String sql1 = "select * from t_sys_menu where parentId = ?";
+        List<Map<String,Object>> childList = jdbcTemplate.queryForList(sql1,new Object[]{menuId});
+        for(int i=0;i<childList.size();i++){
+            Map<String,Object> map = childList.get(i);
+            long id = Convert.strToLong(map.get("id")+"",0);
+            //删除第三级菜单
+            String str = "delete from t_sys_menu where parentId = ?";
+            jdbcTemplate.update(str,new Object[]{id});
+        }
+        //删除第二级菜单
+        String str = "delete from t_sys_menu where parentId = ?";
+        jdbcTemplate.update(str,new Object[]{menuId});
+        //删除第一级菜单
+        String sql = "delete from t_sys_menu  where id = ?";
+        jdbcTemplate.update(sql,new Object[]{menuId});
+    }
 }

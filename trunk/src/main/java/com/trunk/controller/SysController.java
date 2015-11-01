@@ -161,10 +161,9 @@ public class SysController {
         return JSON.toJSONString(map);
     }
 
-    //测试菜单
-    @RequestMapping("/treeView")
-    @ResponseBody
-    public String TreeView(HttpServletRequest request){
+    //查看菜单
+    @RequestMapping("/menu")
+    public String menu(HttpServletRequest request,long menuId){
         //菜单列表
         List<Map<String,Object>> mps = sysService.allMenuList();
         List<TreeObject> list = new ArrayList<TreeObject>();
@@ -174,8 +173,60 @@ public class SysController {
             list.add(treeObject);
         }
         TreeUtil treeUtil = new TreeUtil();
-        List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0);
-        request.setAttribute("ns",JSON.toJSONString(ns));
-        return "user/test";
+        List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0, "&nbsp;&nbsp;&nbsp;");
+        request.setAttribute("treeList",ns);
+        //查看信息
+        Map<String,Object> menu = sysService.menu(menuId);
+        request.setAttribute("menu",menu);
+        return "sys/updateMenu";
+    }
+
+    //更新菜单
+    @RequestMapping("/updateMenu")
+    public void updateMenu(HttpServletResponse response,Menu menu){
+        Map<String,Object> map = ResultUtil.result();
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            if(Validators.isBlank(menu.getName())){
+                map.put("code",1);
+                map.put("msg","请输入菜单名称");
+            }else if(Validators.isBlank(menu.getResKey())){
+                map.put("code",2);
+                map.put("msg","请输入菜单标识");
+            }else if(Validators.isBlank(menu.getUrl())){
+                map.put("code",3);
+                map.put("msg","请输入菜单名称");
+            }else if(Validators.isBlank(menu.getDescription())){
+                map.put("code",4);
+                map.put("msg","请输入菜单描述");
+            }else{
+                sysService.updateMneu(menu);
+                map.put("msg","菜单更新成功");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error(e);
+            map.put("code",-1);
+            map.put("msg","更新菜单失败,请联系管理员");
+        }
+        out.print("<script type=\"text/javascript\">parent.callback('"+ResultUtil.toJSON(map)+"')</script>");
+    }
+
+    //删除菜单
+    @RequestMapping("/deleteMenu")
+    @ResponseBody
+    public String deleteMenu(long menuId){
+        Map<String,Object> map = ResultUtil.result();
+        try {
+            sysService.deleteMenu(menuId);
+            map.put("msg","菜单删除成功");
+        }catch (Exception e){
+            e.printStackTrace();
+            logger.error(e);
+            map.put("code",-1);
+            map.put("msg","菜单删除失败,请联系管理员");
+        }
+        return ResultUtil.toJSON(map);
     }
 }

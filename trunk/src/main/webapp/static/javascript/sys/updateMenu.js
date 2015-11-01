@@ -1,5 +1,5 @@
 /**
- * 方法描述:新增菜单
+ * 方法描述:修改菜单
  * @author 小刘
  * @date 2015/10/24
  * @version v1.0
@@ -36,7 +36,7 @@ $(function(){
                         message: 'resKey不能为空'
                     },
                     stringLength: {
-                        min: 4,
+                        min: 2,
                         max: 12,
                         message: 'resKey长度为4-12'
                     }
