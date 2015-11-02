@@ -26,7 +26,7 @@
 <div class="row">
     <div class="col-xs-12">
         <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
-        <form action="sys/updateMenu" class="form-horizontal" role="form" id="form" name="form" method="post" target="hidden_frame">
+        <form action="menu/updateMenu" class="form-horizontal" role="form" id="form" name="form" method="post" target="hidden_frame">
             <input type="hidden" id="id" name="id" value="${menu.id}"/>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="resName"> 菜单名称 </label>

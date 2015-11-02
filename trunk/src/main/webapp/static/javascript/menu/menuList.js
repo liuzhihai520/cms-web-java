@@ -6,7 +6,7 @@
  */
 $(function(){
     $("#addMenu").click(function(){
-      window.location.href = "sys/initMenu";
+      window.location.href = "menu/initMenu";
     });
 });
 
@@ -39,7 +39,7 @@ function deleteMenu(menuId){
                                 title:'提示:',
                                 message: data.msg,
                                 callback: function(){
-                                    window.location.href = "sys/menusList";
+                                    window.location.href = "menu/menusList";
                                 }
                             });
                         }else{

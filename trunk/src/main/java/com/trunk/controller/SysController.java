@@ -3,6 +3,7 @@ package com.trunk.controller;
 import com.alibaba.fastjson.JSON;
 import com.trunk.bean.Menu;
 import com.trunk.bean.TreeObject;
+import com.trunk.service.MenuService;
 import com.trunk.service.SysService;
 import com.trunk.util.Common;
 import com.trunk.util.Pages;
@@ -40,12 +41,14 @@ public class SysController {
 
     @Autowired
     private SysService sysService;
+    @Autowired
+    private MenuService menuService;
 
     //主界面
     @RequestMapping("/index")
     public String index(HttpServletRequest request){
         //菜单列表
-        List<Map<String,Object>> mps = sysService.allMenuList();
+        List<Map<String,Object>> mps = menuService.allMenuList();
         List<TreeObject> list = new ArrayList<TreeObject>();
         for(int i=0;i<mps.size();i++){
             Map<String,Object> map = mps.get(i);
@@ -62,171 +65,7 @@ public class SysController {
     @RequestMapping("/menuList")
     @ResponseBody
     public String menuList(@RequestParam(required = true, defaultValue = "0") long menuId){
-        List<Map<String,Object>> list = sysService.menuList(menuId);
+        List<Map<String,Object>> list = menuService.menuList(menuId);
         return JSON.toJSONString(list);
-    }
-
-    //菜单管理列表
-    @RequestMapping("/menusList")
-    public String menuList(HttpServletRequest request,
-                             @RequestParam(required = false, defaultValue = "1") int pageNumber){
-        int index = (pageNumber - 1) * 10;
-        Pages<Map<String,Object>> page = sysService.menuList(index,pageNumber);
-        request.setAttribute("list",page.getList());
-        request.setAttribute("page", page);
-        request.setAttribute("hasPreviousPage", page.hasPreviousPage());
-        request.setAttribute("hasNextPage", page.hasNextPage());
-        request.setAttribute("navigatePageNumbers", page.getNavigatePageNumbers());
-        return "sys/menuList";
-    }
-
-    //添加菜单页
-    @RequestMapping("/initMenu")
-    public String toAddMenu(HttpServletRequest request){
-        List<Map<String,Object>> mps = sysService.allMenuList();
-        List<TreeObject> list = new ArrayList<TreeObject>();
-        for(int i=0;i<mps.size();i++){
-            Map<String,Object> map = mps.get(i);
-            TreeObject treeObject = Common.map2Bean(map, TreeObject.class);
-            list.add(treeObject);
-        }
-        TreeUtil treeUtil = new TreeUtil();
-        List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0, "&nbsp;&nbsp;&nbsp;");
-        request.setAttribute("treeList",ns);
-        return "sys/addMenu";
-    }
-
-    //新增菜单
-    @RequestMapping("/addMenu")
-    public void addMenu(HttpServletResponse response,Menu menu){
-        Map<String,Object> map = ResultUtil.result();
-        PrintWriter out = null;
-        int i = 0;
-        try{
-            out = response.getWriter();
-            if(Validators.isBlank(menu.getName())){
-                map.put("code",1);
-                map.put("msg","请输入菜单名称");
-            }else if(Validators.isBlank(menu.getResKey())){
-                map.put("code",2);
-                map.put("msg","请输入菜单标识");
-            }else if(Validators.isBlank(menu.getUrl())){
-                map.put("code",3);
-                map.put("msg","请输入菜单名称");
-            }else if(Validators.isBlank(menu.getDescription())){
-                map.put("code",4);
-                map.put("msg","请输入菜单描述");
-            }else{
-                sysService.addMenu(menu);
-                map.put("msg","菜单添加成功");
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            logger.error(e);
-            map.put("code",-1);
-            map.put("msg","添加菜单失败,请联系管理员");
-        }
-        out.print("<script type=\"text/javascript\">parent.callback('"+ResultUtil.toJSON(map)+"')</script>");
-    }
-
-    //查询角色权限
-    @RequestMapping("/roleRootList")
-    public String roleRootList(HttpServletRequest request,long role_id){
-        List<TreeObject> list = sysService.roleRootList(role_id);
-        request.setAttribute("roleId",role_id);
-        request.setAttribute("treeList",ResultUtil.toJSON(list));
-        return "sys/roleRoot";
-    }
-
-    //角色菜单授权
-    @RequestMapping("/roleRoot")
-    @ResponseBody
-    public String roleRoot(long role_id,String treeList){
-        Map<String,Object> map = ResultUtil.result();
-        try{
-            if(treeList != null && !treeList.equals("")){
-                treeList = treeList.substring(0,treeList.length()-1);
-                sysService.roleRoot(treeList, role_id);
-                map.put("msg","权限分配成功");
-            }else{
-                map.put("code",1);
-                map.put("msg","请为角色分配权限");
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            logger.error(e);
-            map.put("code",-1);
-            map.put("msg","权限分配失败,联系管理员");
-        }
-        return JSON.toJSONString(map);
-    }
-
-    //查看菜单
-    @RequestMapping("/menu")
-    public String menu(HttpServletRequest request,long menuId){
-        //菜单列表
-        List<Map<String,Object>> mps = sysService.allMenuList();
-        List<TreeObject> list = new ArrayList<TreeObject>();
-        for(int i=0;i<mps.size();i++){
-            Map<String,Object> map = mps.get(i);
-            TreeObject treeObject = Common.map2Bean(map, TreeObject.class);
-            list.add(treeObject);
-        }
-        TreeUtil treeUtil = new TreeUtil();
-        List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0, "&nbsp;&nbsp;&nbsp;");
-        request.setAttribute("treeList",ns);
-        //查看信息
-        Map<String,Object> menu = sysService.menu(menuId);
-        request.setAttribute("menu",menu);
-        return "sys/updateMenu";
-    }
-
-    //更新菜单
-    @RequestMapping("/updateMenu")
-    public void updateMenu(HttpServletResponse response,Menu menu){
-        Map<String,Object> map = ResultUtil.result();
-        PrintWriter out = null;
-        try {
-            out = response.getWriter();
-            if(Validators.isBlank(menu.getName())){
-                map.put("code",1);
-                map.put("msg","请输入菜单名称");
-            }else if(Validators.isBlank(menu.getResKey())){
-                map.put("code",2);
-                map.put("msg","请输入菜单标识");
-            }else if(Validators.isBlank(menu.getUrl())){
-                map.put("code",3);
-                map.put("msg","请输入菜单名称");
-            }else if(Validators.isBlank(menu.getDescription())){
-                map.put("code",4);
-                map.put("msg","请输入菜单描述");
-            }else{
-                sysService.updateMneu(menu);
-                map.put("msg","菜单更新成功");
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            logger.error(e);
-            map.put("code",-1);
-            map.put("msg","更新菜单失败,请联系管理员");
-        }
-        out.print("<script type=\"text/javascript\">parent.callback('"+ResultUtil.toJSON(map)+"')</script>");
-    }
-
-    //删除菜单
-    @RequestMapping("/deleteMenu")
-    @ResponseBody
-    public String deleteMenu(long menuId){
-        Map<String,Object> map = ResultUtil.result();
-        try {
-            sysService.deleteMenu(menuId);
-            map.put("msg","菜单删除成功");
-        }catch (Exception e){
-            e.printStackTrace();
-            logger.error(e);
-            map.put("code",-1);
-            map.put("msg","菜单删除失败,请联系管理员");
-        }
-        return ResultUtil.toJSON(map);
     }
 }

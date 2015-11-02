@@ -95,7 +95,7 @@
                                             <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                         </a>
 
-                                        <a class="green" href="sys/menu?menuId=${obj.id}">
+                                        <a class="green" href="menu/menu?menuId=${obj.id}">
                                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                                         </a>
 

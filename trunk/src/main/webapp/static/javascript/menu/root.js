@@ -35,7 +35,7 @@ $(function(){
         }
         $.ajax({
             type:"POST",
-            url:"sys/roleRoot",
+            url:"menu/roleRoot",
             dataType:"json",
             data:{treeList:treeArray,role_id:$("#roleId").val()},
             success:function(data){
