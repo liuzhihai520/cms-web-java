@@ -15,10 +15,6 @@ $(function(){
         _topWin.document.location.href = "/trunk";
     }
 
-    $("#login").click(function(){
-        $("#form").submit();
-    });
-
     $('#btn-login-dark').on('click', function(e) {
         $('body').attr('class', 'login-layout');
         $('#id-text2').attr('class', 'white');
@@ -48,4 +44,26 @@ $(function(){
         //show target
         $(target).addClass('visible');
     });
+
+    $("#login").click(function(){
+        $("#form").submit();
+    });
 });
+
+//回调函数
+function callback(data){
+    var obj = $.parseJSON(data);
+    if(obj.code == 0){
+        bootbox.alert({
+            size: 'small',
+            title:'提示:',
+            message: obj.msg
+        });
+    }else{
+        bootbox.alert({
+            size: 'small',
+            title:'提示:',
+            message: obj.msg
+        });
+    }
+}

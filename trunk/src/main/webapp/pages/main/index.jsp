@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="static/ace/css/ace.css" />
     <link rel="stylesheet" href="static/ace/css/ace-rtl.css" />
     <script src="static/ace/js/jquery1x.js"></script>
+    <script src="static/ace/js/bootstrap.js"></script>
+    <script src="static/ace/js/ace/ace.js"></script>
+    <script src="static/ace/js/bootbox.js"></script>
     <script src="static/ace/js/jquery.mobile.custom.js"></script>
     <script src="static/javascript/login/login.js"></script>
 </head>
@@ -48,8 +51,8 @@
                                         </h4>
 
                                         <div class="space-6"></div>
-
-                                        <form action="sys/login" id="form" name="form" method="post">
+                                        <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
+                                        <form action="sys/login" id="form" name="form" method="post" target="hidden_frame">
                                             <fieldset>
                                                 <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">

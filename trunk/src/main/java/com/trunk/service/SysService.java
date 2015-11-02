@@ -18,21 +18,15 @@ import java.util.Map;
 public class SysService extends BaseService{
 
     //用户登录
-    public User user(String username,String password){
+    public User user(String username){
         //通过用户名查询
-        String str = "select * from t_sys_user where username = ?";
+        String str = "SELECT a.*,IFNULL(b.roleId,0) AS role FROM t_sys_user a LEFT JOIN t_sys_user_role b ON a.id=b.userId " +
+                      "WHERE a.username = ?";
         Map<String,Object> map = jdbcTemplate.queryForMap(str,new Object[]{username});
         if(map == null || map.isEmpty()){
             return null;
         }else{
-            //密码加盐
-            String pas = Common.MD5(password)+map.get("salt");
-            //重新生成MD5
-            String rePas = Common.MD5(pas);
-            //匹配用户账号密码
-            String sql = "select * from t_sys_user where username = ? and password = ?";
-            Map<String,Object> tempUser = jdbcTemplate.queryForMap(sql,new Object[]{username,rePas});
-            User user = Common.map2Bean(tempUser,User.class);
+            User user = Common.map2Bean(map,User.class);
             return user;
         }
     }

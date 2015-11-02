@@ -1,14 +1,15 @@
 package com.trunk.shiro;
 
+import com.trunk.bean.TreeObject;
 import com.trunk.bean.User;
 import com.trunk.service.MenuService;
 import com.trunk.service.SysService;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
+import com.trunk.util.Common;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -39,10 +40,20 @@ public class Realm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         //用户输入的认证信息
-        User user = (User)authenticationToken.getPrincipal();
-
-        //用户菜单
-        List<Map<String,Object>> menuList = menuService.menuList(0);
-        return null;
+        User token = (User)authenticationToken.getPrincipal();
+        //查询用户
+        User user = sysService.user(token.getUsername());
+        if(user == null){
+            // 没找到帐号
+            throw new UnknownAccountException();
+        }else{
+            //密码加盐
+            String repass = Common.MD5(user.getPassword())+user.getSalt();
+            //设置菜单
+            List<TreeObject> menuList = menuService.roleRootList(user.getRole());
+            user.setMenuList(menuList);
+            SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user,user.getPassword(), ByteSource.Util.bytes(repass),getName());
+            return authenticationInfo;
+        }
     }
 }

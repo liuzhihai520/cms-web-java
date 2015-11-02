@@ -1,6 +1,8 @@
 package com.trunk.bean;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 方法描述:用户
@@ -18,7 +20,13 @@ public class User {
     private int status;
     private Timestamp createTime;
     private String description;
+
+    //额外字段
     private long role;
+    //菜单
+    List<TreeObject> menuList = new ArrayList<>();
+
+
     public long getId() {
         return id;
     }
@@ -89,5 +97,13 @@ public class User {
 
     public void setRole(long role) {
         this.role = role;
+    }
+
+    public List<TreeObject> getMenuList() {
+        return menuList;
+    }
+
+    public void setMenuList(List<TreeObject> menuList) {
+        this.menuList = menuList;
     }
 }
