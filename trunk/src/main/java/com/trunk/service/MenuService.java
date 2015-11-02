@@ -137,4 +137,13 @@ public class MenuService extends BaseService{
         String sql = "delete from t_sys_menu  where id = ?";
         jdbcTemplate.update(sql,new Object[]{menuId});
     }
+
+    //用户授权菜单
+    public List<Map<String,Object>> userMenuList(long userId){
+        String sql = "SELECT c.* FROM t_sys_user_role a " +
+                      "JOIN t_sys_role_res b ON a.roleId=b.roleId " +
+                      "JOIN t_sys_menu c ON b.resId=c.id where a.userId = ?";
+        List<Map<String,Object>> list = jdbcTemplate.queryForList(sql,new Object[]{userId});
+        return list;
+    }
 }
