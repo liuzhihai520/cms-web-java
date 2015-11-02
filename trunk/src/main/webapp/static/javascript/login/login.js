@@ -5,14 +5,47 @@
  * @version v1.0
  */
 $(function(){
+
     var _topWin = window;
     while (_topWin != _topWin.parent.window) {
         _topWin = _topWin.parent.window;
     }
+
     if (window != _topWin){
         _topWin.document.location.href = "/trunk";
     }
+
     $("#login").click(function(){
-      $("#form").submit();
-   });
+        $("#form").submit();
+    });
+
+    $('#btn-login-dark').on('click', function(e) {
+        $('body').attr('class', 'login-layout');
+        $('#id-text2').attr('class', 'white');
+        $('#id-company-text').attr('class', 'blue');
+        e.preventDefault();
+    });
+
+    $('#btn-login-light').on('click', function(e) {
+        $('body').attr('class', 'login-layout light-login');
+        $('#id-text2').attr('class', 'grey');
+        $('#id-company-text').attr('class', 'blue');
+        e.preventDefault();
+    });
+
+    $('#btn-login-blur').on('click', function(e) {
+        $('body').attr('class', 'login-layout blur-login');
+        $('#id-text2').attr('class', 'white');
+        $('#id-company-text').attr('class', 'light-blue');
+        e.preventDefault();
+    });
+
+    $(document).on('click', '.toolbar a[data-target]', function(e) {
+        e.preventDefault();
+        var target = $(this).data('target');
+        //hide others
+        $('.widget-box.visible').removeClass('visible');
+        //show target
+        $(target).addClass('visible');
+    });
 });

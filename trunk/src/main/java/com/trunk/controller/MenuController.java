@@ -54,6 +54,14 @@ public class MenuController {
         return "menu/menuList";
     }
 
+    //查询菜单列表
+    @RequestMapping("/menuList")
+    @ResponseBody
+    public String menuList(@RequestParam(required = true, defaultValue = "0") long menuId){
+        List<Map<String,Object>> list = menuService.menuList(menuId);
+        return JSON.toJSONString(list);
+    }
+
     //添加菜单页
     @RequestMapping("/initMenu")
     public String toAddMenu(HttpServletRequest request){
