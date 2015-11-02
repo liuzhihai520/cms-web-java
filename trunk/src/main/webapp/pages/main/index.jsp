@@ -1,7 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <base href="<%=basePath%>/">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
     <title>Login Page - Ace Admin</title>
@@ -70,8 +75,7 @@
                                                         <span class="lbl"> Remember Me</span>
                                                     </label>
 
-                                                    <button type="button" class="width-35 pull-right btn btn-sm btn-primary"
-                                                            id="login">
+                                                    <button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="login">
                                                         <i class="ace-icon fa fa-key"></i>
                                                         <span class="bigger-110">Login</span>
                                                     </button>
