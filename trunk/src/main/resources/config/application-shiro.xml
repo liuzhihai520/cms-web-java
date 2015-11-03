@@ -33,7 +33,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /static/** = anon
-                /sys/main = anon
+                /sys/main = user
                 /** = authc
             </value>
         </property>
