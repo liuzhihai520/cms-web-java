@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,38 +44,31 @@ public class SysController {
     @Autowired
     private MenuService menuService;
 
+    //初始登录
+    @RequestMapping("/index")
+    public String index(){
+        return "main/index";
+    }
+
     //登录
     @RequestMapping("/login")
-    public void login(HttpServletRequest request,HttpServletResponse response){
+    public String login(HttpServletRequest request,HttpServletResponse response){
         Map<String,Object> map = ResultUtil.result();
-        PrintWriter out = null;
-        try {
-            out = response.getWriter();
-            //如果登陆失败从request中获取认证异常信息
-            String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
-            //根据shiro返回的异常类路径判断,抛出指定异常信息
-            if(exceptionClassName!=null){
-                if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
-                    map.put("code",1);
-                    map.put("msg","账号不存在");
-                } else if (IncorrectCredentialsException.class.getName().equals(exceptionClassName)) {
-                    map.put("code",2);
-                    map.put("msg","账号/密码错误");
-                }else {
-                    map.put("code",3);
-                    map.put("msg","未知异常,请联系管理员");
-                }
-            }else{
-                map.put("code",4);
-                map.put("msg","验证信息获取失败");
+        String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
+        if(exceptionClassName!=null){
+            if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
+                map.put("code",1);
+                map.put("msg","账号不存在");
+            } else if (IncorrectCredentialsException.class.getName().equals(exceptionClassName)) {
+                map.put("code",2);
+                map.put("msg","用户名/密码错误");
+            }else {
+                map.put("code",3);
+                map.put("msg","未知错误");
             }
-        }catch (Exception e){
-            e.printStackTrace();
-            logger.error(e);
-            map.put("code",-1);
-            map.put("msg","登陆出错,请联系管理员");
         }
-        out.print("<script type=\"text/javascript\">parent.callback('"+ResultUtil.toJSON(map)+"')</script>");
+        request.setAttribute("obj",ResultUtil.toJSON(map));
+        return "main/index";
     }
 
     //主界面
@@ -96,5 +90,10 @@ public class SysController {
         model.addAttribute("user",user);
         model.addAttribute("menuList", ns);
         return "main/main";
+    }
+
+    public static void main(String[] args) {
+        Md5Hash md5Hash = new Md5Hash("111111","jt1d",1);
+        System.out.println(md5Hash.toString());
     }
 }

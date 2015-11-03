@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.trunk.util.Pages;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -51,10 +52,9 @@ public class UserService extends BaseService{
             }else{
                 //随机生成4位字符串
                 String salt = Common.getRandomString(4);
-                //密码加盐
-                String pas = Common.MD5(user.getPassword())+salt;
                 //重新生成MD5
-                String password = Common.MD5(pas);
+                Md5Hash md5Hash = new Md5Hash(user.getPassword(),salt,1);
+                String password = md5Hash.toString();
                 //插入用户表
                 String sql = "insert into t_sys_user(username,accountname,password,salt,status,description)values(?,?,?,?,?,?)";
                 KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -118,4 +118,5 @@ public class UserService extends BaseService{
         String str = "delete from t_sys_user_role where userId = ?";
         jdbcTemplate.update(str,new Object[]{userId});
     }
+
 }

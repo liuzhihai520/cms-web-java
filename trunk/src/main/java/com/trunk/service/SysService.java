@@ -21,7 +21,7 @@ public class SysService extends BaseService{
     public User user(String username){
         //通过用户名查询
         String str = "SELECT a.*,IFNULL(b.roleId,0) AS role FROM t_sys_user a LEFT JOIN t_sys_user_role b ON a.id=b.userId " +
-                      "WHERE a.username = ?";
+                      "WHERE a.accountname = ?";
         Map<String,Object> map = jdbcTemplate.queryForMap(str,new Object[]{username});
         if(map == null || map.isEmpty()){
             return null;
