@@ -44,15 +44,9 @@ public class SysController {
     @Autowired
     private MenuService menuService;
 
-    //初始登录
-    @RequestMapping("/index")
-    public String index(){
-        return "main/index";
-    }
-
     //登录
     @RequestMapping("/login")
-    public String login(HttpServletRequest request,HttpServletResponse response){
+    public String login(HttpServletRequest request){
         Map<String,Object> map = ResultUtil.result();
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
         if(exceptionClassName!=null){
@@ -90,10 +84,5 @@ public class SysController {
         model.addAttribute("user",user);
         model.addAttribute("menuList", ns);
         return "main/main";
-    }
-
-    public static void main(String[] args) {
-        Md5Hash md5Hash = new Md5Hash("111111","jt1d",1);
-        System.out.println(md5Hash.toString());
     }
 }
