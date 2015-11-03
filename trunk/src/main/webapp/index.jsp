@@ -1,3 +1,4 @@
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
@@ -56,7 +57,7 @@
                                                 <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
                                                             <input type="text" class="form-control" id="username"
-                                                                   name="username" placeholder="Username"/>
+                                                                   name="username" placeholder="Username" value="<shiro:principal property="username"/>"/>
                                                             <i class="ace-icon fa fa-user"></i>
                                                         </span>
                                                 </label>
@@ -64,7 +65,7 @@
                                                 <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
                                                             <input type="password" id="password" name="password"
-                                                                   class="form-control" placeholder="Password"/>
+                                                                   class="form-control" placeholder="Password" value="<shiro:principal property="password"/>"/>
                                                             <i class="ace-icon fa fa-lock"></i>
                                                         </span>
                                                 </label>

@@ -70,7 +70,7 @@ public class SysController {
     public String index(Model model){
         //用户信息
         Subject subject = SecurityUtils.getSubject();
-        User user = (User)subject.getPrincipals();
+        User user = (User)subject.getPrincipals().getPrimaryPrincipal();
         //菜单列表
         List<Map<String,Object>> mps = menuService.allMenuList();
         List<TreeObject> list = new ArrayList<TreeObject>();

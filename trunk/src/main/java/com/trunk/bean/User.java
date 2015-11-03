@@ -1,5 +1,6 @@
 package com.trunk.bean;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @version v1.0
  * @date 2015/10/26
  */
-public class User {
+public class User implements Serializable {
     private long id;
     private String username;
     private String accountname;
