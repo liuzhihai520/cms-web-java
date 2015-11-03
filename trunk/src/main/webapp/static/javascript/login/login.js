@@ -48,22 +48,19 @@ $(function(){
     $("#login").click(function(){
         $("#form").submit();
     });
-});
 
-//回调函数
-function callback(data){
-    var obj = $.parseJSON(data);
-    if(obj.code == 0){
-        bootbox.alert({
-            size: 'small',
-            title:'提示:',
-            message: obj.msg
-        });
-    }else{
-        bootbox.alert({
-            size: 'small',
-            title:'提示:',
-            message: obj.msg
-        });
+    var obj;
+    if(data != null && data != ''){
+        obj = data;
+        if(obj.code != 0){
+            bootbox.alert({
+                size: 'small',
+                title:'提示:',
+                message: obj.msg,
+                callback:function(){
+                    $("#username").focus();
+                }
+            });
+        }
     }
-}
+});

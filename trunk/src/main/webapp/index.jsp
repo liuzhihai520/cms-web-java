@@ -23,6 +23,9 @@
     <script src="static/ace/js/ace/ace.js"></script>
     <script src="static/ace/js/bootbox.js"></script>
     <script src="static/ace/js/jquery.mobile.custom.js"></script>
+    <script>
+        var data = ${data};
+    </script>
     <script src="static/javascript/login/login.js"></script>
 </head>
 
@@ -57,7 +60,7 @@
                                                 <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
                                                             <input type="text" class="form-control" id="username"
-                                                                   name="username" placeholder="Username" value="<shiro:principal property="username"/>"/>
+                                                                   name="username" placeholder="Username" value="${username}"/>
                                                             <i class="ace-icon fa fa-user"></i>
                                                         </span>
                                                 </label>
@@ -65,7 +68,7 @@
                                                 <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
                                                             <input type="password" id="password" name="password"
-                                                                   class="form-control" placeholder="Password" value="<shiro:principal property="password"/>"/>
+                                                                   class="form-control" placeholder="Password" value="${password}"/>
                                                             <i class="ace-icon fa fa-lock"></i>
                                                         </span>
                                                 </label>

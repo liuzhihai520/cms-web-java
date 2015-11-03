@@ -33,6 +33,7 @@
         <property name="filterChainDefinitions">
             <value>
                 /static/** = anon
+                / = anon
                 /logout = logout
                 /** = authc
             </value>

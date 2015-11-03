@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +33,6 @@ import java.util.Map;
  * @version v1.0
  * @date 2015/10/22
  */
-@RequestMapping("/sys/*")
 @Controller
 public class SysController {
 
@@ -44,9 +44,15 @@ public class SysController {
     @Autowired
     private MenuService menuService;
 
+    //初始化方法
+    @RequestMapping("/")
+    public String index(){
+        return "main/index";
+    }
+
     //登录
-    @RequestMapping("/login")
-    public String login(HttpServletRequest request){
+    @RequestMapping("sys/login")
+    public String login(HttpServletRequest request,RedirectAttributes attr){
         Map<String,Object> map = ResultUtil.result();
         String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
         if(exceptionClassName!=null){
@@ -61,13 +67,13 @@ public class SysController {
                 map.put("msg","未知错误");
             }
         }
-        request.setAttribute("obj",ResultUtil.toJSON(map));
+        request.setAttribute("data",ResultUtil.toJSON(map));
         return "main/index";
     }
 
     //主界面
-    @RequestMapping("/main")
-    public String index(Model model){
+    @RequestMapping("sys/main")
+    public String main(Model model){
         //用户信息
         Subject subject = SecurityUtils.getSubject();
         User user = (User)subject.getPrincipals().getPrimaryPrincipal();
