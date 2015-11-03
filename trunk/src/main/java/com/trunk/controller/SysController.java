@@ -46,7 +46,9 @@ public class SysController {
 
     //初始化方法
     @RequestMapping("/")
-    public String index(){
+    public String index(HttpServletRequest request){
+        Map<String,Object> map = ResultUtil.result();
+        request.setAttribute("data",ResultUtil.toJSON(map));
         return "main/index";
     }
 

@@ -49,18 +49,22 @@ $(function(){
         $("#form").submit();
     });
 
-    var obj;
-    if(data != null && data != ''){
-        obj = data;
-        if(obj.code != 0){
-            bootbox.alert({
-                size: 'small',
-                title:'提示:',
-                message: obj.msg,
-                callback:function(){
-                    $("#username").focus();
-                }
-            });
-        }
+    var obj = data;
+    if(obj.code != 0){
+        bootbox.alert({
+            size: 'small',
+            title:'提示:',
+            message: obj.msg,
+            callback:function(){
+                $("#username").focus();
+            }
+        });
     }
+
+    $("#password").keyup(function(event){
+        var charCode= (navigator.appName=="Netscape")?event.which:event.keyCode;
+        if(charCode == 13){
+            $("#form").submit();
+        }
+    })
 });
