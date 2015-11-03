@@ -31,12 +31,9 @@ CREATE TABLE `t_sys_menu` (
   `icon` varchar(20) DEFAULT NULL COMMENT '图标',
   `ishide` int(2) DEFAULT NULL COMMENT '1.显示 2隐藏',
   `description` varchar(50) DEFAULT NULL COMMENT '描述',
+  `parent_ids` varchar(200) DEFAULT NULL COMMENT 'id序列',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
-
-/*Data for the table `t_sys_menu` */
-
-insert  into `t_sys_menu`(`id`,`name`,`parentId`,`resKey`,`type`,`url`,`level`,`icon`,`ishide`,`description`) values (3,'系统 & 设置',0,'system','1','system',0,'fa-desktop',1,'系统基础设置'),(4,'操作 & 日志1',0,'log1','1','log1',0,'fa-book',1,'操作日志管理1'),(17,'用户管理',3,'account','2','user/userList',0,'',1,'用户管理'),(18,'角色管理',3,'role','2','role/roleList',0,'',1,'角色管理'),(19,'菜单管理',3,'menu','2','sys/menusList',0,'',1,'菜单管理');
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `t_sys_res_user` */
 
@@ -47,8 +44,6 @@ CREATE TABLE `t_sys_res_user` (
   `resId` bigint(11) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`userId`,`resId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `t_sys_res_user` */
 
 /*Table structure for table `t_sys_role` */
 
@@ -61,11 +56,7 @@ CREATE TABLE `t_sys_role` (
   `status` int(2) DEFAULT NULL COMMENT '状态',
   `description` varchar(50) DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
-
-/*Data for the table `t_sys_role` */
-
-insert  into `t_sys_role`(`id`,`name`,`roleKey`,`status`,`description`) values (7,'管理员','admin',1,'管理员'),(8,'普通用户','normal',1,'普通用户');
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `t_sys_role_res` */
 
@@ -76,10 +67,6 @@ CREATE TABLE `t_sys_role_res` (
   `resId` bigint(11) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`roleId`,`resId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `t_sys_role_res` */
-
-insert  into `t_sys_role_res`(`roleId`,`resId`) values (7,3),(7,17),(7,18),(7,19);
 
 /*Table structure for table `t_sys_user` */
 
@@ -95,11 +82,7 @@ CREATE TABLE `t_sys_user` (
   `createTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `description` varchar(100) DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
-/*Data for the table `t_sys_user` */
-
-insert  into `t_sys_user`(`id`,`username`,`accountname`,`password`,`salt`,`status`,`createTime`,`description`) values (2,'管理员','admin','2E997EF34E1BD3AD6A0BCAF092FE9ABF','jt1d',1,'2015-10-26 21:36:59','管理员');
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `t_sys_user_role` */
 
@@ -110,10 +93,6 @@ CREATE TABLE `t_sys_user_role` (
   `roleId` bigint(11) NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`userId`,`roleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `t_sys_user_role` */
-
-insert  into `t_sys_user_role`(`userId`,`roleId`) values (2,7);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

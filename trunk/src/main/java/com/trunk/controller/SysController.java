@@ -80,15 +80,7 @@ public class SysController {
         Subject subject = SecurityUtils.getSubject();
         User user = (User)subject.getPrincipals().getPrimaryPrincipal();
         //菜单列表
-        List<Map<String,Object>> mps = menuService.allMenuList();
-        List<TreeObject> list = new ArrayList<TreeObject>();
-        for(int i=0;i<mps.size();i++){
-            Map<String,Object> map = mps.get(i);
-            TreeObject treeObject = Common.map2Bean(map, TreeObject.class);
-            list.add(treeObject);
-        }
-        TreeUtil treeUtil = new TreeUtil();
-        List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0);
+        List<TreeObject> ns = user.getMenuList();
         model.addAttribute("user",user);
         model.addAttribute("menuList", ns);
         return "main/main";
