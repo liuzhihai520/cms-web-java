@@ -102,8 +102,8 @@ public class UserService extends BaseService{
             String sql = "update t_sys_user set username=?,status=?,description=? where id = ?";
             jdbcTemplate.update(sql,new Object[]{user.getUsername(),user.getStatus(),user.getDescription(),user.getId()});
             //修改角色
-            String sql1 = "update t_sys_user_role set roleId = ? where userId=? and roleId=?";
-            jdbcTemplate.update(sql1,new Object[]{user.getRole(),user.getId(),user.getRole()});
+            String sql1 = "update t_sys_user_role set roleId = ? where userId=?";
+            jdbcTemplate.update(sql1,new Object[]{user.getRole(),user.getId()});
         }
         return i;
     }
