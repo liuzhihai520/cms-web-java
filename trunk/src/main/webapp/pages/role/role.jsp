@@ -19,13 +19,13 @@
   <link rel="stylesheet" href="static/js/validator/css/bootstrapValidator.min.css" />
   <script src="static/ace/js/jquery1x.js"></script>
   <script src="static/js/validator/js/bootstrapValidator.min.js"></script>
-  <script src="static/javascript/user/role.js"></script>
+  <script src="static/javascript/role/role.js"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
     <div class="row">
       <div class="col-xs-12">
         <iframe name='hidden_frame' id="hidden_frame" style='display:none'></iframe>
-        <form action="user/addRole" class="form-horizontal" role="form" id="form" name="form" method="post" target="hidden_frame">
+        <form action="role/addRole" class="form-horizontal" role="form" id="form" name="form" method="post" target="hidden_frame">
 
           <div class="form-group">
               <label class="col-sm-3 control-label no-padding-right">角色名</label>

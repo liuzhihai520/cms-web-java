@@ -24,7 +24,7 @@
     <script type="text/javascript">
         var treeList = ${treeList};
     </script>
-    <script type="text/javascript" src="static/javascript/sys/root.js"></script>
+    <script type="text/javascript" src="static/javascript/menu/root.js"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
 <input type="hidden" id="roleId" name="roleId" value="${roleId}"/>

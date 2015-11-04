@@ -11,21 +11,27 @@ import java.util.List;
  *
  */
 public class TreeUtil {
-	
+
+    List<TreeObject> returnList = new ArrayList<TreeObject>();
 	
 	/**
 	 * 根据父节点的ID获取所有子节点
 	 * @param list 分类表
-	 * @param typeId 传入的父节点ID
+	 * @param praentId 传入的父节点ID
 	 * @return String
 	 */
 	public List<TreeObject> getChildTreeObjects(List<TreeObject> list,int praentId) {
+        //创建一个集合
 		List<TreeObject> returnList = new ArrayList<TreeObject>();
+        //遍历所有菜单
 		for (Iterator<TreeObject> iterator = list.iterator(); iterator.hasNext();) {
-			TreeObject t = (TreeObject) iterator.next();
-			// 一、根据传入的某个父节点ID,遍历该父节点的所有子节点
+			//菜单对象
+            TreeObject t = (TreeObject) iterator.next();
+			//根据传入的父节点parentId遍历所有子节点
 			if (t.getParentId()==praentId) {
+                //遍历父节点所有子节点
 				recursionFn(list, t);
+                //保存当前父节点菜单对象
 				returnList.add(t);
 			}
 		}
@@ -35,14 +41,18 @@ public class TreeUtil {
 	/**
 	 * 递归列表
 	 * @date 2013-12-4 下午7:27:30
-	 * @param list
-	 * @param TreeObject
+	 * @param list 所有菜单集合
+	 * @param t 递归第一次的父节点对象
 	 */
 	private void  recursionFn(List<TreeObject> list, TreeObject t) {
-		List<TreeObject> childList = getChildList(list, t);// 得到子节点列表
+        // 得到当前传入父节点的所有子节点
+		List<TreeObject> childList = getChildList(list, t);
+        //设置TreeObject对象中的子节点集合数据
 		t.setChildren(childList);
+        //遍历子节点集合
 		for (TreeObject tChild : childList) {
-			if (hasChild(list, tChild)) {// 判断是否有子节点
+            // 判断是否有子节点
+			if (hasChild(list, tChild)) {
 				//returnList.add(TreeObject);
 				Iterator<TreeObject> it = childList.iterator();
 				while (it.hasNext()) {
@@ -52,10 +62,17 @@ public class TreeUtil {
 			}
 		}
 	}
-	
-	// 得到子节点列表
+
+    /**
+     * 子节点列表
+     * @param list 所有菜单集合
+     * @param t 父节点对象
+     * @return
+     */
 	private List<TreeObject> getChildList(List<TreeObject> list, TreeObject t) {
+        //子节点集合
 		List<TreeObject> tlist = new ArrayList<TreeObject>();
+        //遍历菜单对象
 		Iterator<TreeObject> it = list.iterator();
 		while (it.hasNext()) {
 			TreeObject n = (TreeObject) it.next();
@@ -66,8 +83,6 @@ public class TreeUtil {
 		return tlist;
 	}
 
-	List<TreeObject> returnList = new ArrayList<TreeObject>();
-
 	/**
      * 根据父节点的ID获取所有子节点
      * @param list 分类表
@@ -76,23 +91,24 @@ public class TreeUtil {
      */
     public List<TreeObject> getChildTreeObjects(List<TreeObject> list, int typeId,String prefix){
         if(list == null) return null;
+        //遍历所有菜单
         for (Iterator<TreeObject> iterator = list.iterator(); iterator.hasNext();) {
+            //当前菜单对象
             TreeObject node = (TreeObject) iterator.next();
-            // 一、根据传入的某个父节点ID,遍历该父节点的所有子节点
+            //根据传入父节点遍历所有子节点
             if (node.getParentId()==typeId) {
                 recursionFn(list, node,prefix);
             }
-            // 二、遍历所有的父节点下的所有子节点
-            /*if (node.getParentId()==0) {
-                recursionFn(list, node);
-            }*/
         }
         return returnList;
     }
-     
+
+
     private void recursionFn(List<TreeObject> list, TreeObject node,String p) {
-        List<TreeObject> childList = getChildList(list, node);// 得到子节点列表
-        if (hasChild(list, node)) {// 判断是否有子节点
+        // 得到子节点列表
+        List<TreeObject> childList = getChildList(list, node);
+        // 判断是否有子节点
+        if (hasChild(list, node)) {
             returnList.add(node);
             Iterator<TreeObject> it = childList.iterator();
             while (it.hasNext()) {

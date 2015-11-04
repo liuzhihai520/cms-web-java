@@ -20,7 +20,7 @@
     <script src="static/ace/js/ace/ace.js"></script>
     <script src="static/ace/js/ace/elements.colorpicker.js"></script>
     <script src="static/ace/js/ace/ace.widget-box.js"></script>
-    <script src="static/javascript/role/roleList.js"></script>
+    <script src="static/javascript/role/roleList.js?v=21111"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
     <div class="row">
@@ -89,7 +89,7 @@
                                                 <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                             </a>
 
-                                            <a class="blue" href="sys/roleRootList?role_id=${obj.id}">
+                                            <a class="blue" href="menu/roleRootList?role_id=${obj.id}">
                                                 <i class="ace-icon fa fa-key bigger-130"></i>
                                             </a>
                                         </div>

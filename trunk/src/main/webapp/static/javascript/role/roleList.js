@@ -6,7 +6,7 @@
  */
 $(function(){
     $("#addRole").click(function(){
-        window.location.href = "../../../pages/role/role.jsp"
+        window.location.href = "role/roleInit";
     });
 });
 

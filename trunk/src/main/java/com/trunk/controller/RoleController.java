@@ -45,6 +45,12 @@ public class RoleController {
         return "role/roleList";
     }
 
+    //初始化角色
+    @RequestMapping("/roleInit")
+    public String roleInit(){
+        return "role/role";
+    }
+
     //新增角色
     @RequestMapping("/addRole")
     public void addRole(HttpServletResponse response,
