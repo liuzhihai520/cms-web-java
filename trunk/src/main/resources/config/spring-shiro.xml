@@ -21,7 +21,7 @@
         <!-- 认证成功统一跳转到first.action，建议不配置，shiro认证成功自动到上一个请求路径 -->
         <property name="successUrl" value="/sys/main"/>
         <!-- 通过unauthorizedUrl指定没有权限操作时跳转页面-->
-        <property name="unauthorizedUrl" value="/403" />
+        <property name="unauthorizedUrl" value="/main/auth.jsp" />
         <!-- 过虑器链定义，从上向下顺序执行，一般将/**放在最下边 -->
         <!-- 自定义filter配置 -->
         <property name="filters">
@@ -73,4 +73,5 @@
         <!-- 记住我input的名称 -->
         <property name="rememberMeParam" value="rememberMe"/>
     </bean>
+
 </beans>

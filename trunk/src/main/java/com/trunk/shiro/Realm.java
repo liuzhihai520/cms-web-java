@@ -37,7 +37,7 @@ public class Realm extends AuthorizingRealm {
         //获取认证设置的用户对象
         User user = (User)principalCollection.getPrimaryPrincipal();
         //用户权限菜单
-        List<TreeObject> menuList = user.getMenuList();
+        List<TreeObject> menuList = menuService.userAuthMenuList(user.getId());
         //单独定一个集合对象
         List<String> permissions = new ArrayList<String>();
         if(menuList != null && menuList.size() > 0){

@@ -48,7 +48,7 @@
     
     <!-- 扫描业务逻辑层 -->
     <context:component-scan base-package="com.trunk.service,com.trunk.controller"></context:component-scan>
-    
+
     <!-- jdbcTemplate -->
     <bean id="jdbc" class="com.trunk.util.JdbcTempCore">
         <property name="dataSource" ref="dataSource"/>
@@ -60,13 +60,6 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <!-- 开启aop，对类代理 -->
-    <aop:config proxy-target-class="true"></aop:config>
-    <!-- 开启shiro注解支持 -->
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-        <property name="securityManager" ref="securityManager" />
-    </bean>
-    
     <!-- 可通过注解控制事务 -->
 	<tx:annotation-driven  transaction-manager="transactionManager"/>
 	
