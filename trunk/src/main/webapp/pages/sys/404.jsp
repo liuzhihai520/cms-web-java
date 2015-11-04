@@ -28,26 +28,27 @@
         <div class="error-container">
             <div class="well">
                 <h1 class="grey lighter smaller">
-											<span class="blue bigger-125">
-												<i class="ace-icon fa fa-random"></i>
-												500
-											<iframe id="tmp_downloadhelper_iframe" style="display: none;"></iframe></span>
-                    Something Went Wrong
+                    <span class="blue bigger-125">
+                        <i class="ace-icon fa fa-sitemap"></i>
+                        404
+                    </span>
+                    Page Not Found
                 </h1>
 
                 <hr>
-                <h3 class="lighter smaller">
-                    But we are working
-                    <i class="ace-icon fa fa-key icon-animated-wrench bigger-125"></i>
-                    on it!
-                </h3>
-
-                <div class="space"></div>
+                <h3 class="lighter smaller">We looked everywhere but we couldn't find it!</h3>
 
                 <div>
-                    <h4 class="lighter smaller">Meanwhile, try one of the following:</h4>
+
+                    <div class="space"></div>
+                    <h4 class="smaller">Try one of the following:</h4>
 
                     <ul class="list-unstyled spaced inline bigger-110 margin-15">
+                        <li>
+                            <i class="ace-icon fa fa-hand-o-right blue"></i>
+                            Re-check the url for typos
+                        </li>
+
                         <li>
                             <i class="ace-icon fa fa-hand-o-right blue"></i>
                             Read the faq
@@ -55,7 +56,7 @@
 
                         <li>
                             <i class="ace-icon fa fa-hand-o-right blue"></i>
-                            Give us more info on how this specific error occurred!
+                            Tell us about it
                         </li>
                     </ul>
                 </div>
@@ -76,10 +77,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- /section:pages/error -->
-
-        <!-- PAGE CONTENT ENDS -->
     </div>
 </div>
 </body>

@@ -10,7 +10,7 @@
     <base href="<%=basePath%>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
-    <title>系统管理 - 无权限访问</title>
+    <title>系统管理 - 添加用户</title>
     <meta name="description" content="overview &amp; stats" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <link rel="stylesheet" href="static/ace/css/bootstrap.css" />
@@ -27,9 +27,9 @@
                 <h1 class="grey lighter smaller">
                     <span class="blue bigger-125">
                         <i class="ace-icon fa fa-random"></i>
-                        500
+                        403
                     </span>
-                    Something Went Wrong
+                    You are not authorized to do this action
                 </h1>
 
                 <hr>

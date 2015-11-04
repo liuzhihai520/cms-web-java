@@ -25,7 +25,7 @@
         <mvc:resources location="/static/" mapping="/static/**"/>
 
         <!--使Spring支持自动检测组件，如注解的Controller-->
-        <context:component-scan base-package="com.trunk.controller"/>
+        <context:component-scan base-package="com.trunk.util,,com.trunk.controller"/>
 
         <!-- 开启aop，对类代理 -->
         <aop:config proxy-target-class="true"></aop:config>
@@ -65,4 +65,8 @@
             <property name="prefix"    value="/pages/" />
             <property name="suffix"    value=".jsp"></property>
         </bean>
+
+        <!-- 控制器异常处理 -->
+        <bean id="exceptionHandlerExceptionResolver" class="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver"></bean>
+        <bean class="com.trunk.util.DefaultExceptionHandler"/>
 </beans>

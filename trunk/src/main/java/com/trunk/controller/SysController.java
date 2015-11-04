@@ -86,10 +86,15 @@ public class SysController {
         return "main/main";
     }
 
-    //权限403
-    @RequestMapping("/403")
-    public String refuse(){
+    //404
+    @RequestMapping("/404")
+    public String notFound(){
+        return "sys/404";
+    }
 
-        return "sys/403";
+    //500
+    @RequestMapping("/500")
+    public String error(){
+        return "sys/500";
     }
 }
