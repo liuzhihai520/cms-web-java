@@ -2,10 +2,12 @@ package com.trunk.service;
 
 import com.trunk.bean.Menu;
 import com.trunk.bean.TreeObject;
+import com.trunk.shiro.Realm;
 import com.trunk.util.Common;
 import com.trunk.util.Convert;
 import com.trunk.util.Pages;
 import com.trunk.util.TreeUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +24,10 @@ import java.util.Map;
  */
 @Service
 public class MenuService extends BaseService{
+
+    @Autowired
+    private Realm realm;
+
     //顶级菜单列表查询
     public List<Map<String,Object>> topMenuList(){
         String sql = "select * from t_sys_menu where parentId = 0";
@@ -54,10 +60,14 @@ public class MenuService extends BaseService{
 
     //新增菜单
     public void addMenu(Menu menu){
-        String sql = "insert into t_sys_menu(name,parentId,resKey,type,url,level,icon,ishide,description) " +
-                "values(?,?,?,?,?,?,?,?,?)";
+        //查询用户上级菜单地址链
+        String str = "select * from t_sys_menu where id = ?";
+        Map<String,Object> map = jdbcTemplate.queryForMap(str,new Object[]{menu.getParentId()});
+        //写入菜单
+        String sql = "insert into t_sys_menu(name,parentId,resKey,type,url,level,icon,ishide,description,parent_ids) " +
+                "values(?,?,?,?,?,?,?,?,?,?)";
         jdbcTemplate.update(sql,new Object[]{menu.getName(),menu.getParentId(),menu.getResKey(),
-                menu.getType(),menu.getUrl(),menu.getLevel(),menu.getIcon(),menu.getIshide(),menu.getDescription()});
+                menu.getType(),menu.getUrl(),menu.getLevel(),menu.getIcon(),menu.getIshide(),menu.getDescription(),map.get("parent_ids")+"/"+menu.getParentId()});
     }
 
     //查询角色权限
@@ -102,6 +112,7 @@ public class MenuService extends BaseService{
             String insert = "insert into t_sys_role_res (roleId,resId) values (?,?)";
             jdbcTemplate.update(insert,new Object[]{roleId,idArr[i]});
         }
+        //清除角色缓存
     }
 
     //查看菜单

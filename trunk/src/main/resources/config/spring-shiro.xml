@@ -43,6 +43,8 @@
     <!-- securityManager安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="customRealm" />
+        <!-- 注入缓存管理器 -->
+        <property name="cacheManager" ref="cacheManager"/>
     </bean>
 
     <!-- realm -->
@@ -54,6 +56,11 @@
     <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
         <property name="hashAlgorithmName" value="md5" />
         <property name="hashIterations" value="1" />
+    </bean>
+
+    <!-- 缓存管理器 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:config/shiro-ehcache.xml"/>
     </bean>
 
     <!-- 自定义form认证过虑器 -->

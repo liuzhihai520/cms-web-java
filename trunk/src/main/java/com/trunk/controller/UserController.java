@@ -7,6 +7,7 @@ import com.trunk.util.Pages;
 import com.trunk.util.ResultUtil;
 import com.trunk.util.xutil.Validators;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,6 +39,7 @@ public class UserController {
 
     //用户管理列表
     @RequestMapping("/userList")
+    @RequiresPermissions("user:userList")
     public String userList(HttpServletRequest request){
         List<Map<String,Object>> userList = userService.userList();
         request.setAttribute("userList",userList);
@@ -56,6 +58,7 @@ public class UserController {
 
     //新增用户
     @RequestMapping("/addUser")
+    @RequiresPermissions("user:add")
     public void addUser(HttpServletResponse response,User user){
         Map<String,Object> map = ResultUtil.result();
         PrintWriter out = null;
@@ -108,6 +111,7 @@ public class UserController {
 
     //修改用户
     @RequestMapping("/updateUser")
+    @RequiresPermissions("user:update")
     public void updateUser(HttpServletResponse response,User user){
         Map<String,Object> map = ResultUtil.result();
         PrintWriter out = null;
@@ -141,6 +145,7 @@ public class UserController {
 
     //删除用户
     @RequestMapping("/deleteUser")
+    @RequiresPermissions("user:deleteUser")
     public String deleteUser(long userId){
         userService.deleteUser(userId);
         return "redirect:/user/userList";

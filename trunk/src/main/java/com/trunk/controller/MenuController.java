@@ -10,6 +10,7 @@ import com.trunk.util.ResultUtil;
 import com.trunk.util.TreeUtil;
 import com.trunk.util.xutil.Validators;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,7 @@ public class MenuController {
 
     //菜单管理列表
     @RequestMapping("/menusList")
+    @RequiresPermissions("")
     public String menuList(HttpServletRequest request,
                            @RequestParam(required = false, defaultValue = "1") int pageNumber){
         int index = (pageNumber - 1) * 10;

@@ -20,7 +20,7 @@
     <script src="static/ace/js/ace/ace.js"></script>
     <script src="static/ace/js/ace/elements.colorpicker.js"></script>
     <script src="static/ace/js/ace/ace.widget-box.js"></script>
-    <script src="static/javascript/sys/menuList.js?v=<%=System.currentTimeMillis()%>"></script>
+    <script src="static/javascript/menu/menuList.js?v=<%=System.currentTimeMillis()%>"></script>
 </head>
 <body class="no-skin" style="background-color: white;">
 <div class="row">
