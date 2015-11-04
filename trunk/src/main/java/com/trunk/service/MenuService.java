@@ -139,11 +139,19 @@ public class MenuService extends BaseService{
     }
 
     //用户授权菜单
-    public List<Map<String,Object>> userMenuList(long userId){
+    public List<TreeObject> userMenuList(long userId){
         String sql = "SELECT c.* FROM t_sys_user_role a " +
                       "JOIN t_sys_role_res b ON a.roleId=b.roleId " +
                       "JOIN t_sys_menu c ON b.resId=c.id where a.userId = ?";
         List<Map<String,Object>> list = jdbcTemplate.queryForList(sql,new Object[]{userId});
-        return list;
+        List<TreeObject> menuList = new ArrayList<TreeObject>();
+        for(int i=0;i<list.size();i++){
+            Map<String,Object> map = list.get(i);
+            TreeObject treeObject = Common.map2Bean(map, TreeObject.class);
+            menuList.add(treeObject);
+        }
+        TreeUtil treeUtil = new TreeUtil();
+        List<TreeObject> ns = treeUtil.getChildTreeObjects(menuList, 0);
+        return ns;
     }
 }

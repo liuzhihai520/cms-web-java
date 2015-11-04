@@ -50,7 +50,7 @@ public class Realm extends AuthorizingRealm {
             //盐
             String salt = user.getSalt();
             //设置菜单
-            List<TreeObject> menuList = menuService.roleRootList(user.getRole());
+            List<TreeObject> menuList = menuService.userMenuList(user.getId());
             user.setMenuList(menuList);
             SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user,user.getPassword(), ByteSource.Util.bytes(salt),getName());
             return authenticationInfo;
