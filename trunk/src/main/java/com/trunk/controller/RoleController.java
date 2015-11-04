@@ -55,6 +55,7 @@ public class RoleController {
 
     //新增角色
     @RequestMapping("/addRole")
+    @RequiresPermissions("role:add")
     public void addRole(HttpServletResponse response,
                         @RequestParam(required = true, defaultValue = "") String roleName,
                         @RequestParam(required = true, defaultValue = "") String roleKey,
@@ -96,6 +97,7 @@ public class RoleController {
 
     //删除角色
     @RequestMapping("/deleteRole")
+    @RequiresPermissions("role:delete")
     public String deleteRole(long role_id){
         roleService.deleteRole(role_id);
         return "redirect:/role/roleList";
@@ -111,6 +113,7 @@ public class RoleController {
 
     //修改角色信息
     @RequestMapping("/updateRole")
+    @RequiresPermissions("role:update")
     public void updateRole(HttpServletResponse response,Role role){
         Map<String,Object> map = ResultUtil.result();
         PrintWriter out = null;

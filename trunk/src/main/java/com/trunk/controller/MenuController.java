@@ -43,7 +43,7 @@ public class MenuController {
 
     //菜单管理列表
     @RequestMapping("/menusList")
-    @RequiresPermissions("")
+    @RequiresPermissions("menu:menusList")
     public String menuList(HttpServletRequest request,
                            @RequestParam(required = false, defaultValue = "1") int pageNumber){
         int index = (pageNumber - 1) * 10;
@@ -58,6 +58,7 @@ public class MenuController {
 
     //查询菜单列表
     @RequestMapping("/menuList")
+    @RequiresPermissions("menu:menuList")
     @ResponseBody
     public String menuList(@RequestParam(required = true, defaultValue = "0") long menuId){
         List<Map<String,Object>> list = menuService.menuList(menuId);
@@ -82,6 +83,7 @@ public class MenuController {
 
     //新增菜单
     @RequestMapping("/addMenu")
+    @RequiresPermissions("menu:add")
     public void addMenu(HttpServletResponse response,Menu menu){
         Map<String,Object> map = ResultUtil.result();
         PrintWriter out = null;
@@ -115,6 +117,7 @@ public class MenuController {
 
     //查询角色权限
     @RequestMapping("/roleRootList")
+    @RequiresPermissions("menu:roleRootList")
     public String roleRootList(HttpServletRequest request,long role_id){
         List<TreeObject> list = menuService.roleRootList(role_id);
         request.setAttribute("roleId",role_id);
@@ -124,6 +127,7 @@ public class MenuController {
 
     //角色菜单授权
     @RequestMapping("/roleRoot")
+    @RequiresPermissions("menu:roleRoot")
     @ResponseBody
     public String roleRoot(long role_id,String treeList){
         Map<String,Object> map = ResultUtil.result();
@@ -147,6 +151,7 @@ public class MenuController {
 
     //查看菜单
     @RequestMapping("/menu")
+    @RequiresPermissions("menu:menu")
     public String menu(HttpServletRequest request,long menuId){
         //菜单列表
         List<Map<String,Object>> mps = menuService.allMenuList();
@@ -167,6 +172,7 @@ public class MenuController {
 
     //更新菜单
     @RequestMapping("/updateMenu")
+    @RequiresPermissions("menu:update")
     public void updateMenu(HttpServletResponse response,Menu menu){
         Map<String,Object> map = ResultUtil.result();
         PrintWriter out = null;
@@ -199,6 +205,7 @@ public class MenuController {
 
     //删除菜单
     @RequestMapping("/deleteMenu")
+    @RequiresPermissions("menu:delete")
     @ResponseBody
     public String deleteMenu(long menuId){
         Map<String,Object> map = ResultUtil.result();

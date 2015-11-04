@@ -145,7 +145,7 @@ public class UserController {
 
     //删除用户
     @RequestMapping("/deleteUser")
-    @RequiresPermissions("user:deleteUser")
+    @RequiresPermissions("user:delete")
     public String deleteUser(long userId){
         userService.deleteUser(userId);
         return "redirect:/user/userList";
