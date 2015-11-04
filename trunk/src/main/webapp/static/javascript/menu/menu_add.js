@@ -37,7 +37,7 @@ $(function(){
                     },
                     stringLength: {
                         min: 4,
-                        max: 12,
+                        max: 20,
                         message: 'resKey长度为4-12'
                     }
                 }
