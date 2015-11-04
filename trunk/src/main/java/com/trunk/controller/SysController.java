@@ -85,4 +85,11 @@ public class SysController {
         model.addAttribute("menuList", ns);
         return "main/main";
     }
+
+    //权限403
+    @RequestMapping("/403")
+    public String refuse(){
+
+        return "sys/403";
+    }
 }

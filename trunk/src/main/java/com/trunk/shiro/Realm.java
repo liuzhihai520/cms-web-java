@@ -7,11 +7,13 @@ import com.trunk.service.SysService;
 import com.trunk.util.Common;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,8 +34,21 @@ public class Realm extends AuthorizingRealm {
     //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-
-        return null;
+        //获取认证设置的用户对象
+        User user = (User)principalCollection.getPrimaryPrincipal();
+        //用户权限菜单
+        List<TreeObject> menuList = user.getMenuList();
+        //单独定一个集合对象
+        List<String> permissions = new ArrayList<String>();
+        if(menuList != null && menuList.size() > 0){
+            for(TreeObject sysPermission:menuList){
+                //将数据库中的权限标签 符放入集合
+                permissions.add(sysPermission.getResKey());
+            }
+        }
+        SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        simpleAuthorizationInfo.addStringPermissions(permissions);
+        return simpleAuthorizationInfo;
     }
 
     //认证
