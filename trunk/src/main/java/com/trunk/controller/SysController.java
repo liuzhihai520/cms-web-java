@@ -60,7 +60,7 @@ public class SysController {
     @RequestMapping("/code")
     public void code(HttpServletRequest request,HttpServletResponse response)throws Exception {
         response.setContentType("image/png");
-//        response.setHeader("cache", "no-cache");
+        response.setHeader("cache", "no-cache");
         HttpSession session = request.getSession(true);
         OutputStream os = response.getOutputStream();
         String captcha = EncoderHelper.getChallangeAndWriteImage(Patchca.createImage(), "png", os);

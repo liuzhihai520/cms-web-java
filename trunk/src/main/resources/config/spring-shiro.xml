@@ -44,8 +44,8 @@
     <!-- securityManager安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="customRealm" />
-        <!-- 注入缓存管理器
-        <property name="cacheManager" ref="cacheManager"/> -->
+        <!-- 注入缓存管理器 -->
+        <property name="cacheManager" ref="cacheManager"/>
         <!-- 会话管理器 -->
         <property name="sessionManager" ref="sessionManager"/>
     </bean>
