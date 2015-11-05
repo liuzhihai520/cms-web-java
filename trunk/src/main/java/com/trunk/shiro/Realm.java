@@ -5,6 +5,7 @@ import com.trunk.bean.User;
 import com.trunk.service.MenuService;
 import com.trunk.service.SysService;
 import com.trunk.util.Common;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -75,13 +76,15 @@ public class Realm extends AuthorizingRealm {
     /**
      * 更新用户授权信息缓存.
      */
-    public void clearCachedAuthorizationInfo(PrincipalCollection principals) {
+    public void clearCachedAuthorizationInfo() {
+        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
         super.clearCachedAuthorizationInfo(principals);
     }
     /**
      * 更新用户信息缓存.
      */
-    public void clearCachedAuthenticationInfo(PrincipalCollection principals) {
+    public void clearCachedAuthenticationInfo() {
+        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
         super.clearCachedAuthenticationInfo(principals);
     }
 
@@ -102,7 +105,8 @@ public class Realm extends AuthorizingRealm {
     /**
      * 清空所有缓存
      */
-    public void clearCache(PrincipalCollection principals) {
+    public void clearCache() {
+        PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
         super.clearCache(principals);
     }
 

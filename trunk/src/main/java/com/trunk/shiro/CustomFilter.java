@@ -19,6 +19,17 @@ public class CustomFilter extends FormAuthenticationFilter {
     protected boolean onAccessDenied(ServletRequest request,ServletResponse response) throws Exception {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpSession session =httpServletRequest.getSession();
+
+        //获取session中的验证码
+        String validateCode = (String) session.getAttribute("captcha");
+
+        //取出页面的验证码
+        String randomcode = httpServletRequest.getParameter("validateCode");
+        if(randomcode!=null && validateCode!=null && !randomcode.equals(validateCode)){
+            httpServletRequest.setAttribute("shiroLoginFailure", "validateCodeError");
+            //拒绝访问，不再校验账号和密码
+            return true;
+        }
         return super.onAccessDenied(request, response);
     }
 }

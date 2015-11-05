@@ -34,6 +34,7 @@
             <value>
                 /static/** = anon
                 / = anon
+                /code = anon
                 /logout = logout
                 /** = authc
             </value>
@@ -43,8 +44,10 @@
     <!-- securityManager安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="customRealm" />
-        <!-- 注入缓存管理器 -->
-        <property name="cacheManager" ref="cacheManager"/>
+        <!-- 注入缓存管理器
+        <property name="cacheManager" ref="cacheManager"/> -->
+        <!-- 会话管理器 -->
+        <property name="sessionManager" ref="sessionManager"/>
     </bean>
 
     <!-- realm -->
@@ -61,6 +64,14 @@
     <!-- 缓存管理器 -->
     <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         <property name="cacheManagerConfigFile" value="classpath:config/shiro-ehcache.xml"/>
+    </bean>
+
+    <!-- 会话管理器 -->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <!-- session的失效时长，单位毫秒 -->
+        <property name="globalSessionTimeout" value="50000"/>
+        <!-- 删除失效的session -->
+        <property name="deleteInvalidSessions" value="true"/>
     </bean>
 
     <!-- 自定义form认证过虑器 -->

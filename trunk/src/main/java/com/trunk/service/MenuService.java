@@ -113,6 +113,7 @@ public class MenuService extends BaseService{
             jdbcTemplate.update(insert,new Object[]{roleId,idArr[i]});
         }
         //清除角色缓存
+        realm.clearCache();
     }
 
     //查看菜单

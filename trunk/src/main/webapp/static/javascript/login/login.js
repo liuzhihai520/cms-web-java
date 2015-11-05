@@ -67,4 +67,9 @@ $(function(){
             $("#form").submit();
         }
     })
+
+    //刷新验证码
+    $("#captcha").click(function(){
+        $("#captcha").attr("src","code?v="+Math.random());
+    });
 });
