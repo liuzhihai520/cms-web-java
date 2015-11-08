@@ -41,7 +41,7 @@
     </bean>
 
     <!-- 当在web.xml 中   DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
-
+    <mvc:default-servlet-handler/>
     <!-- 静态资源访问 -->
     <mvc:resources location="/static/" mapping="/static/**"/>
 
@@ -55,7 +55,7 @@
 
 
     <!-- 开启aop，对类代理 -->
-    <aop:config proxy-target-class="true" />
+    <aop:config proxy-target-class="true"></aop:config>
     <!-- 开启shiro注解支持 -->
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager" />
