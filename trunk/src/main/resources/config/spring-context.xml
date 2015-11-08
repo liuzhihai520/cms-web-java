@@ -1,76 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
+
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context-3.0.xsd
-            http://www.springframework.org/schema/aop 
-            http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-            http://www.springframework.org/schema/tx 
-            http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-            http://www.springframework.org/schema/mvc 
-            http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
-            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <import resource="spring-shiro.xml"></import>
-            
-    <!-- 引入jdbc配置文件 -->
-	<context:property-placeholder location="classpath:config/jdbc.properties" />
-    <!-- 配置连接池 -->
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-    	<property name="driverClassName" value="${jdbc_driverClassName}"/>
-        <property name="url" value="${jdbc_url}"/>
-        <property name="username" value="${jdbc_username}"/>
-	   <property name="password" value="${jdbc_password}"/>
-        <property name="filters" value="stat" />
-        <property name="maxActive" value="8" />
-        <property name="initialSize" value="2" />
-        <property name="maxWait" value="30" />
-        <property name="minIdle" value="4" />
-        <property name="timeBetweenEvictionRunsMillis" value="60000" />
-        <property name="minEvictableIdleTimeMillis" value="300000" />
-        <property name="validationQuery" value="SELECT 'x'" />
-        <property name="testWhileIdle" value="true" />
-        <property name="testOnBorrow" value="false" />
-        <property name="testOnReturn" value="false" />
-        <property name="maxOpenPreparedStatements" value="20" />
-        <property name="removeAbandoned" value="true" /> <!-- 打开removeAbandoned功能 -->
-        <property name="removeAbandonedTimeout" value="1800" /> <!-- 1800秒，也就是30分钟 -->
-        <property name="logAbandoned" value="true" /> <!-- 关闭abanded连接时输出错误日志 -->
-    </bean>
-    
+    <import resource="spring-dao.xml"></import>
+
     <!-- 扫描业务逻辑层 -->
-    <context:component-scan base-package="com.trunk.service,com.trunk.controller"></context:component-scan>
+    <context:component-scan base-package="com.trunk.service,com.trunk.controller,com.trunk.util"></context:component-scan>
 
-    <!-- jdbcTemplate -->
-    <bean id="jdbc" class="com.trunk.util.JdbcTempCore">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
- 	
- 	<!-- 事物 -->
-    <bean id="transactionManager"
-        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
-    </bean>
-
-    <!-- 可通过注解控制事务 -->
-	<tx:annotation-driven  transaction-manager="transactionManager"/>
-	
-	<!-- myBatis文件 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath*:com/trunk/mapping/*.xml" />
-	</bean>
-
-	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.trunk.dao" />
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
-	</bean>
 </beans>
