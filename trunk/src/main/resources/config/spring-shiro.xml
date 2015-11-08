@@ -26,10 +26,11 @@
         <property name="filterChainDefinitions">
             <value>
                 /static/** = anon
-                / = anon
+                /ajax/** = anon
                 /code = anon
                 /logout = logout
-                /** = authc
+                /sys/login = authc
+                /** = user
             </value>
         </property>
     </bean>
@@ -76,6 +77,8 @@
         <property name="passwordParam" value="password" />
         <!-- 记住我input的名称 -->
         <property name="rememberMeParam" value="rememberMe"/>
+
+        <property name="loginUrl" value="/sys/login"/>
     </bean>
 
     <!-- Shiro生命周期处理器-->

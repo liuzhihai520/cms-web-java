@@ -14,6 +14,6 @@
     <import resource="spring-dao.xml"></import>
 
     <!-- 扫描业务逻辑层 -->
-    <context:component-scan base-package="com.trunk.service,com.trunk.controller,com.trunk.util"></context:component-scan>
+    <context:component-scan base-package="com.trunk.service"></context:component-scan>
 
 </beans>
