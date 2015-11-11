@@ -29,6 +29,7 @@
                 /ajax/** = anon
                 /code = anon
                 /logout = logout
+                / = anon
                 /sys/login = authc
                 /** = user
             </value>
