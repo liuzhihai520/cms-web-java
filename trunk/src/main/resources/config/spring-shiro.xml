@@ -25,11 +25,11 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
+                / = anon
                 /static/** = anon
                 /ajax/** = anon
                 /code = anon
                 /logout = logout
-                / = anon
                 /sys/login = authc
                 /** = user
             </value>

@@ -37,6 +37,8 @@
         </property>
     </bean>
 
+    <!-- 重定向首页 -->
+    <mvc:view-controller path="/" view-name="redirect:/sys/login"/>
     <!-- 当在web.xml 中   DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
     <mvc:default-servlet-handler/>
     <!-- 静态资源访问 -->
