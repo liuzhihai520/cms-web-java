@@ -27,7 +27,7 @@ public class SysUserService {
      */
     public SysUser findByUsername(String username) {
         Searchable searchable = new Searchable();
-        searchable.addCondition(new Condition("username", SearchOperator.eq, username));
+        searchable.addCondition(new Condition("accountname", SearchOperator.eq, username));
         return userMapper.selectBySearchable(searchable);
     }
 
