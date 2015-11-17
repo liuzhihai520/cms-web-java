@@ -2,6 +2,7 @@ package com.trunk.service;
 
 import com.trunk.bean.Menu;
 import com.trunk.bean.TreeObject;
+import com.trunk.dao.UserDao;
 import com.trunk.shiro.Realm;
 import com.trunk.util.Common;
 import com.trunk.util.Convert;

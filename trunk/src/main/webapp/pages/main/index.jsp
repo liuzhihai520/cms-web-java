@@ -51,7 +51,7 @@
                                     <div class="widget-main">
                                         <h4 class="header blue lighter bigger">
                                             <i class="ace-icon fa fa-coffee green"></i>
-                                            Please Enter Your Information
+                                            请输入你的登录信息
                                         </h4>
 
                                         <div class="space-6"></div>
@@ -59,23 +59,23 @@
                                             <fieldset>
                                                 <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
-                                                            <input type="text" class="form-control" id="username"
-                                                                   name="username" placeholder="Username"/>
+                                                            <input type="text" class="form-control" id="username" maxlength="20"
+                                                                   name="username" placeholder="用户名"/>
                                                             <i class="ace-icon fa fa-user"></i>
                                                         </span>
                                                 </label>
 
                                                 <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
-                                                            <input type="password" id="password" name="password"
-                                                                   class="form-control" placeholder="Password"/>
+                                                            <input type="password" id="password" name="password" maxlength="20"
+                                                                   class="form-control" placeholder="密码"/>
                                                             <i class="ace-icon fa fa-lock"></i>
                                                         </span>
                                                 </label>
 
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" id="validateCode" name="validateCode" placeholder="四位字符验证码"/>
+                                                        <input type="text" id="validateCode" name="validateCode" placeholder="四位字符验证码" maxlength="4"/>
                                                         <img id="captcha"src="code"/>
                                                     </span>
                                                 </label>
@@ -85,12 +85,12 @@
                                                 <div class="clearfix">
                                                     <label class="inline">
                                                         <input type="checkbox" class="ace"/>
-                                                        <span class="lbl"> Remember Me</span>
+                                                        <span class="lbl"> 记住我</span>
                                                     </label>
 
                                                     <button type="button" class="width-35 pull-right btn btn-sm btn-primary" id="login">
                                                         <i class="ace-icon fa fa-key"></i>
-                                                        <span class="bigger-110">Login</span>
+                                                        <span class="bigger-110">登录</span>
                                                     </button>
                                                 </div>
 

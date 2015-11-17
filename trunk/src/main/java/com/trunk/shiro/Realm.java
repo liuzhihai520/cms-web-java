@@ -2,8 +2,10 @@ package com.trunk.shiro;
 
 import com.trunk.bean.TreeObject;
 import com.trunk.bean.User;
+import com.trunk.bean.sys.SysUser;
 import com.trunk.service.MenuService;
 import com.trunk.service.SysService;
+import com.trunk.service.sys.SysUserService;
 import com.trunk.util.Common;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
@@ -32,6 +34,9 @@ public class Realm extends AuthorizingRealm {
     @Autowired
     private MenuService menuService;
 
+    @Autowired
+    private SysUserService userService;
+
     //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -59,6 +64,10 @@ public class Realm extends AuthorizingRealm {
         String username = (String)authenticationToken.getPrincipal();
         //查询用户
         User user = sysService.user(username);
+
+        SysUser sysUser = userService.findByUsername(username);
+
+        System.out.println("-----------------------" + sysUser.getAccountname());
         if(user == null){
             // 没找到帐号
             throw new UnknownAccountException();
