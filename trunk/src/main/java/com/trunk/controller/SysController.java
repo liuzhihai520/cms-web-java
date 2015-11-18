@@ -4,29 +4,22 @@ import com.trunk.bean.TreeObject;
 import com.trunk.bean.User;
 import com.trunk.service.MenuService;
 import com.trunk.service.SysService;
-import com.trunk.util.Common;
 import com.trunk.util.Patchca;
 import com.trunk.util.ResultUtil;
-import com.trunk.util.TreeUtil;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
-import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.patchca.utils.encoder.EncoderHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,12 +34,7 @@ import java.util.Map;
 public class SysController {
 
     //日志
-    private Logger logger = Logger.getLogger(UserController.class);
-
-    @Autowired
-    private SysService sysService;
-    @Autowired
-    private MenuService menuService;
+    private Logger log = Logger.getLogger(UserController.class);
 
     //初始化方法
     @RequestMapping("/")
@@ -71,26 +59,38 @@ public class SysController {
 
     //登录
     @RequestMapping("sys/login")
-    public String login(HttpServletRequest request,RedirectAttributes attr){
+    public String login(HttpServletRequest request,String username,String password){
         Map<String,Object> map = ResultUtil.result();
-        String exceptionClassName = (String) request.getAttribute("shiroLoginFailure");
-        if(exceptionClassName!=null){
-            if (UnknownAccountException.class.getName().equals(exceptionClassName)) {
-                map.put("code",1);
-                map.put("msg","账号不存在");
-            } else if (IncorrectCredentialsException.class.getName().equals(exceptionClassName)) {
-                map.put("code",2);
-                map.put("msg","用户名/密码错误");
-            }else if(exceptionClassName.equals("validateCodeError")){
-                map.put("code",3);
-                map.put("msg","验证码错误");
-            }else {
-                map.put("code",4);
-                map.put("msg","未知错误");
-            }
+        Subject user = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(username,password);
+        try {
+            user.login(token);
+        }catch (LockedAccountException e) {
+            token.clear();
+            map.put("code",1);
+            map.put("msg","用户已经被锁定不能登录，请与管理员联系!");
+            request.setAttribute("username",username);
+            request.setAttribute("password",password);
+            request.setAttribute("data",ResultUtil.toJSON(map));
+            return "main/index";
+        }catch (AuthenticationException e) {
+            token.clear();
+            map.put("code",2);
+            map.put("msg","用户或密码不正确!");
+            request.setAttribute("username",username);
+            request.setAttribute("password",password);
+            request.setAttribute("data",ResultUtil.toJSON(map));
+            return "main/index";
+        }catch (Exception e){
+            token.clear();
+            map.put("code",3);
+            map.put("msg","未知异常");
+            request.setAttribute("username",username);
+            request.setAttribute("password",password);
+            request.setAttribute("data",ResultUtil.toJSON(map));
+            return "main/index";
         }
-        request.setAttribute("data",ResultUtil.toJSON(map));
-        return "main/index";
+        return "redirect:sys/main";
     }
 
     //主界面

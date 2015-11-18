@@ -61,13 +61,9 @@ public class Realm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         //用户输入的认证信息
-        String username = (String)authenticationToken.getPrincipal();
+        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         //查询用户
-        User user = sysService.user(username);
-
-        SysUser sysUser = userService.findByUsername(username);
-
-        System.out.println("-----------------------" + sysUser.getAccountname());
+        User user = sysService.user(token.getUsername());
         if(user == null){
             // 没找到帐号
             throw new UnknownAccountException();

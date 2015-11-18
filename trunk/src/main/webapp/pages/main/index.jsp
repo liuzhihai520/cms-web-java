@@ -60,7 +60,7 @@
                                                 <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
                                                             <input type="text" class="form-control" id="username" maxlength="20"
-                                                                   name="username" placeholder="用户名"/>
+                                                                   name="username" placeholder="用户名" value="${username}"/>
                                                             <i class="ace-icon fa fa-user"></i>
                                                         </span>
                                                 </label>
@@ -68,7 +68,7 @@
                                                 <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
                                                             <input type="password" id="password" name="password" maxlength="20"
-                                                                   class="form-control" placeholder="密码"/>
+                                                                   class="form-control" placeholder="密码" value="${password}"/>
                                                             <i class="ace-icon fa fa-lock"></i>
                                                         </span>
                                                 </label>
