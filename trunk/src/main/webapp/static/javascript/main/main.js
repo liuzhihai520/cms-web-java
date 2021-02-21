@@ -6,14 +6,14 @@
  */
 var tab;
 $(function($) {
-    //tab = new Tab();
-    $('iframe_id').iframeAutoHeight({debug: true});
+    tab = new Tab();
+    //$('iframe_id').iframeAutoHeight({debug: true});
 });
 
 //设置路劲
-function url(url){
-    //tab.addItem({title:title, url: url});
-    $('#iframe_id').attr("src",url);
+function url(id, url, title){
+    tab.addItem({id:id, title:title, url: url});
+    //$('#iframe_id').attr("src",url);
 }
 
 //设置class元素

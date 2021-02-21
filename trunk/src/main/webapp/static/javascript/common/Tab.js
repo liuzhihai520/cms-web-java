@@ -11,7 +11,12 @@ var Tab = function(config) {
     var addItem = function(item) {
         tabTitle.find("li").removeClass("active");
         tabDiv.find("div").removeClass("in").removeClass("active");
-        var tabItemId = "tabItem_" + tabDiv.find("div").length;
+        var tabItemId = "tabItem_" + item.id;
+        if(tabTitle.find("a[href='#" + tabItemId + "']").length > 0) {
+            tabTitle.find("a[href='#" + tabItemId + "']").tab("show");
+            return;
+        }
+
         var title = item.title || "标签";
         var tab = $('<li class="active"><a data-toggle="tab" href="#' + tabItemId + '">' + title + '<span class="closeico"><i  class="icon-remove" class="close" ></i></span></a></li>');
         var tabItem =  $('<div class="tab-pane in active" id="'+ tabItemId + '"></div>');
@@ -24,6 +29,9 @@ var Tab = function(config) {
 
         tab.find(".closeico").click(function(e) {
             var index = tabTitle.find("li").index(tab);
+            if(index == tabTitle.find("li").length - 1){
+                index--;
+            }
             iframe.remove();
             tab.remove();
             tabItem.remove();
